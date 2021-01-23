@@ -1,5 +1,3 @@
-<div style= "width: 80%; margin:auto">
-
 ## O que vamos ver hoje?
 
 * Nesse curso veremos o front-end
@@ -68,4 +66,32 @@
 6. **Bora Codar**
     - [ ] Estrutura da aplicação com HTML
     - [ ] Estilização com CSS
-</div>
+
+7. **Vamos ver o que veremos na próxima semana?**
+
+## Tarefa 02: Assistir aos cursos/aulas
+
+### Revisão
+
+* **HTML**
+    - [ ] O guia estelar de HTML
+    - [ ] HTML que faz sentido para todos
+
+* **CSS**
+    - [ ] O guia estelar de CSS
+    - [ ] Nem tudo são pixels
+    - [ ] Uma caixa dentro da outra
+    - [ ] App bonito até nos textos
+* **Guia** estelar de HTTP
+    - [ ] 1. Entendendo
+      - [ ] Visão geral
+      - [ ] Visualizando a comunicação
+    - [ ] 2. Conceitos (com exceção da aula de proxies)
+    - [ ] 3. URI (com exceção da aula de URN)
+  
+### Preparação para próxima aula
+* **HTML**
+    - [ ] Posso ver e ouvir o HTML
+    - [ ] Formulários de outro planeta
+* **CSS**
+    - [ ] Nem só de classes ou ID's
