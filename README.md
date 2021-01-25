@@ -198,7 +198,7 @@ Para fazer o estilo do nosso botão usei o seguinte CSS:
 ---
 ### O Projeto
 
-Para implementar as alterações e adições que foram feitas, você pode acessar o meu [index.html](), [styles.css]() e [index.js]().
+Para implementar as alterações e adições que foram feitas, você pode acessar o meu [index.html](./index.html), [styles.css](./styles.css) e [index.js](./index.js).
 
 **obs.:** O meu código javascript está em um arquivo separado do HTML, mas você pode fazer as alterações que fiz diretamente dentro da tag `<script></script>` que foi criada pelo Mayke. 
 
