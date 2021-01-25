@@ -152,8 +152,10 @@ header {
 
   position: relative;
   width: min( 90vw, 800px );
+}
 
-  margin-bottom: 3rem;;
+.logo {
+  margin-top: 4rem;
 }
 
 /* Balance ================================================= */

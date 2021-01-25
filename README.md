@@ -165,12 +165,13 @@ Pronto, agora que temos toda a nossa lógica **javascript** precisamos chamar el
 ### Botão para troca de Temas
 Para chamar nossa função e alterar o tema, vamos criar um botão em nosso **HTML**.
 
-Eu adicionei dentro no nosso `header` abaixo da logo o nosso link:
+Eu adicionei dentro no nosso `header` uma div contento nosso link e logo:
 
 ```html
 <div class="header">
-  <a class="color-mode button" onclick="switchTheme()">Alternar Tema</a>
-</div>
+      <a class="color-mode button" onclick="switchTheme()">Alternar Tema</a>
+      <img class="logo" src="./assets/logo.svg" alt="Logo Dev Finances">
+    </div>
 ```
 Dentro dele coloquei duas classes para usarmos no nosso arquivo CSS e a chamada `onclick` para executar a nossa função.
 
@@ -202,8 +203,10 @@ Para fazer o estilo do nosso botão usei o seguinte CSS:
 
   position: relative;
   width: min( 90vw, 800px );
+}
 
-  margin-bottom: 3rem;;
+.logo {
+  margin-top: 4rem;
 }
 ```
 ---
