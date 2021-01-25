@@ -12,12 +12,13 @@
     rel="stylesheet">
 </head>
 
-<body>
+<body >
   <header>
     <img src="./assets/logo.svg" alt="Logo Dev Finances">
+    <a class="color-mode button" onclick="switchTheme()">Alternar Tema</a>
   </header>
 
-  <main class="container">
+  <main class="container dark">
     <section id="balance">
       <h2 class="sr-only">Balanço</h2>
 
@@ -40,7 +41,7 @@
       <div class="card total">
         <h3>
           <span>Total</span>
-          <img src="./assets/total.svg" alt="Imagem de totais">
+          <img id="img-total" src="./assets/total.svg" alt="Imagem de totais">
         </h3>
         <p>R$ 3.000,00</p>
       </div>
@@ -49,7 +50,11 @@
     <section id="transaction">
       <h2 class="sr-only">Transações</h2>
 
-      <a href="#" class="button new">+ Nova Transação</a>
+      <a 
+        href="#" 
+        class="button new"
+        onclick="Modal.open()"
+      >+ Nova Transação</a>
 
       <table id="data-table">
         <thead>
@@ -90,7 +95,7 @@
     </section>
   </main>
 
-  <div class="modal-overlay active">
+  <div class="modal-overlay">
     <div class="modal">
       <div id="form">
         <h2>Nova Transação</h2>
@@ -136,7 +141,11 @@
           </div>
 
           <div class="input-group actions">
-            <a href="#" class="button cancel">Cancelar</a>
+            <a 
+              href="#" 
+              class="button cancel"
+              onclick="Modal.close()"
+              >Cancelar</a>
             <button>Salvar</button>
           </div>
         </form>
@@ -147,6 +156,8 @@
   <footer>
     <p>dev.finance$</p>
   </footer>
+
+  <script src="./index.js"></script>
 </body>
 
 </html>

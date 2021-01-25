@@ -1,15 +1,33 @@
 /* Global ================================================== */
 :root {
-  --dark-blue: #363F5F;
+  --font-color-base: #363F5F;
   --green: #49AA26;
   --light-green: #3DD705;
-  --red: #E92929
+  --expense-color: #E92929;
+  --light-color-base: #FFF;
+  --table-color-base: #FFF;
+  --background-color-header: #2D4A22;
+  --background-color: #F0F2F5;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border-radius:0.1px
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --font-color-base: #F0F2F5;
+    --green: #49aa26;
+    --light-green: #555;
+    --expense-color: #E92929;
+    --light-color-base: #1f1b24;
+    --table-color-base: #121212;
+    --background-color-header: #121212;
+    --background-color:#1f1b24;
+  }
 }
 
 html {
@@ -17,7 +35,7 @@ html {
 }
 
 body {
-  background: #f0f2f5;
+  background: var(--background-color);
   font-family: 'Poppins', sans-serif;
 }
 
@@ -29,7 +47,7 @@ body {
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
+  light-color-base-space: nowrap;
   border-width: 0;
 }
 
@@ -42,7 +60,7 @@ body {
 h2 {
   margin-top: 3.2rem;
   margin-bottom: 0.8rem;
-  color:var( --dark-blue );
+  color:var( --font-color-base );
 
   font-weight: normal;
 }
@@ -68,7 +86,7 @@ button {
 
   border: none;
 
-  color: #FFF;
+  color: var(--light-color-base);
   background: var(--green);
 
   padding: 0;
@@ -88,8 +106,8 @@ button:hover {
 }
 
 .button.cancel {
-  color: var(--red);
-  border: 2px var(--red) solid;
+  color: var(--expense-color);
+  border: 2px var(--expense-color) solid;
   border-radius: 0.25rem;
 
   height: 50px;
@@ -105,17 +123,33 @@ button:hover {
   opacity: 1;
 }
 
+.color-mode.button {
+  margin-right: 10px;
+}
 
 /* Header ================================================= */
 header {
-  background: #2D4A22;
-  padding: 2rem 0 10rem;
+  background: var(--background-color-header);
+  padding: 3rem 0 12rem;
   text-align: center;
 }
 
-#logo{
-  color: #fff;
-  font-weight: 100;
+.color-mode.button {
+  position: absolute;
+  right: -5px;
+  top: 5px;
+
+  color: var(--green);
+
+  padding: 2px 6px;
+
+  border: 1px solid var(--green);
+  border-radius: 0.25rem;
+}
+
+.color-mode.button:hover {
+  color: var(--light-green);
+  border: 1px solid var(--light-green);
 }
 
 /* Balance ================================================= */
@@ -124,17 +158,19 @@ header {
 }
 
 #balance h2 {
-  color: #fff;
+  color: var(--light-color-base);
 }
 
 /* Cards ================================================= */
 .card {
-  background: #fff;
+  background: var(--light-color-base);
   padding: 1.5rem 2rem;
   border-radius: 0.25rem;
 
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);;
+
   margin-bottom: 2rem;
-  color: var( --dark-blue );
+  color: var( --font-color-base );
 }
 
 .card h3 {
@@ -155,7 +191,7 @@ header {
 
 .card.total {
   background: var(--green);
-  color: #FFF;
+  color: var(--light-color-base);
 }
 
 /* Table ================================================= */
@@ -183,7 +219,7 @@ table thead tr td:last-child {
 }
 
 table thead th {
-  background: #FFF;
+  background: var(--table-color-base);
 
   font-weight: normal;
   padding: 1rem 2rem;
@@ -192,7 +228,7 @@ table thead th {
 }
 
 table tbody td {
-  background: #FFF;
+  background: var(--table-color-base);
 
   padding: 1rem 2rem;
     
@@ -207,7 +243,7 @@ table tbody tr:hover {
 }
 
 td.description {
-  color: var(--dark-blue);
+  color: var(--font-color-base);
 }
 
 td.income {
@@ -215,7 +251,7 @@ td.income {
 }
 
 td.expense {
-  color: var(--red);
+  color: var(--expense-color);
 }
 
 /* Modal ================================================= */
@@ -234,6 +270,8 @@ td.expense {
 
   opacity: 0;
   visibility: hidden;
+
+  z-index: 999;
 }
 
 .modal-overlay.active {
@@ -242,7 +280,7 @@ td.expense {
 }
 
 .modal {
-  background: #F0F2F5;
+  background: var(--background-color);
   padding: 2.4rem;
   margin: 1.4rem;
 }
@@ -288,7 +326,7 @@ input {
 footer {
   text-align: center;
   padding: 4rem 0 2rem;
-  color: var( --dark-blue );
+  color: var( --font-color-base );
 
   opacity: 0.6;
 }
