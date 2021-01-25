@@ -10,13 +10,6 @@
   --background-color: #F0F2F5;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border-radius:0.1px
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --font-color-base: #F0F2F5;
@@ -28,6 +21,13 @@
     --background-color-header: #121212;
     --background-color:#1f1b24;
   }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius:0.1px
 }
 
 html {
@@ -47,7 +47,6 @@ body {
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
-  light-color-base-space: nowrap;
   border-width: 0;
 }
 
@@ -127,13 +126,6 @@ button:hover {
   margin-right: 10px;
 }
 
-/* Header ================================================= */
-header {
-  background: var(--background-color-header);
-  padding: 3rem 0 12rem;
-  text-align: center;
-}
-
 .color-mode.button {
   position: absolute;
   right: -5px;
@@ -150,6 +142,13 @@ header {
 .color-mode.button:hover {
   color: var(--light-green);
   border: 1px solid var(--light-green);
+}
+
+/* Header ================================================= */
+header {
+  background: var(--background-color-header);
+  padding: 3rem 0 12rem;
+  text-align: center;
 }
 
 /* Balance ================================================= */

@@ -22,7 +22,7 @@ let COLOR_THEME = window
 function switchTheme() {
   const currentTheme = COLOR_THEME
 
-  COLOR_THEME = COLOR_THEME === 'light'
+  COLOR_THEME = currentTheme === 'light'
     ? 'dark'
     : 'light'
 
@@ -31,14 +31,13 @@ function switchTheme() {
   document.querySelector('#img-total').src = `./assets/total-${COLOR_THEME}.svg`
  
   for (i = 0; i < rules.length; i++) {
-    let item
-    media = rules[i].media
-
+    let media = rules[i].media
+    
     if (media == undefined) {
       continue
     }
-
-    item = media
+    
+    let item = media
       .mediaText
       .replace(
         "(prefers-color-scheme: " + COLOR_THEME + ")", 
