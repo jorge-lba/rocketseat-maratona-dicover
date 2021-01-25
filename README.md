@@ -168,7 +168,9 @@ Para chamar nossa função e alterar o tema, vamos criar um botão em nosso **HT
 Eu adicionei dentro no nosso `header` abaixo da logo o nosso link:
 
 ```html
-<a class="color-mode button" onclick="switchTheme()">Alternar Tema</a>
+<div class="header">
+  <a class="color-mode button" onclick="switchTheme()">Alternar Tema</a>
+</div>
 ```
 Dentro dele coloquei duas classes para usarmos no nosso arquivo CSS e a chamada `onclick` para executar a nossa função.
 
@@ -179,8 +181,8 @@ Para fazer o estilo do nosso botão usei o seguinte CSS:
 ```css
 .color-mode.button {
   position: absolute;
-  right: -5px;
-  top: 5px;
+  right: 0px;
+  top: 10px;
 
   color: var(--green);
 
@@ -193,6 +195,15 @@ Para fazer o estilo do nosso botão usei o seguinte CSS:
 .color-mode.button:hover {
   color: var(--light-green);
   border: 1px solid var(--light-green);
+}
+
+.header{
+  display: inline-block;
+
+  position: relative;
+  width: min( 90vw, 800px );
+
+  margin-bottom: 3rem;;
 }
 ```
 ---

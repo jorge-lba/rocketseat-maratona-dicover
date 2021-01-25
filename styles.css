@@ -123,13 +123,9 @@ button:hover {
 }
 
 .color-mode.button {
-  margin-right: 10px;
-}
-
-.color-mode.button {
   position: absolute;
-  right: -5px;
-  top: 5px;
+  right: 0px;
+  top: 10px;
 
   color: var(--green);
 
@@ -147,8 +143,17 @@ button:hover {
 /* Header ================================================= */
 header {
   background: var(--background-color-header);
-  padding: 3rem 0 12rem;
+  padding: 0 0 12rem;
   text-align: center;
+}
+
+.header{
+  display: inline-block;
+
+  position: relative;
+  width: min( 90vw, 800px );
+
+  margin-bottom: 3rem;;
 }
 
 /* Balance ================================================= */
