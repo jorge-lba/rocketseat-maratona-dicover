@@ -27,8 +27,6 @@ function switchTheme() {
     : 'light'
 
   const rules = window.document.styleSheets[0].cssRules
-
-  document.querySelector('#img-total').src = `./assets/total-${COLOR_THEME}.svg`
  
   for (i = 0; i < rules.length; i++) {
     let media = rules[i].media

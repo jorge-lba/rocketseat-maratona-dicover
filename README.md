@@ -126,11 +126,28 @@ O próximo passo é criar a variável `rules` para receber todas as regras de CS
 const rules = window.document.styleSheets[0].cssRules
 ```
 
-Agora que temos qual o tema que sera utilizado, podemos alterar o nosso **SVG** do total.
-Como não podemos alter a cor dele no **CSS** criei um novo em preto, você pode encontrar o `total-light.svg` e o `total-dark.svg` nas pastas [assets](./assets)
+Para podermos alterar a cor do nosso **SVG** total, vamos abrir o nosso arquivo [total.svg](./assets/total.svg) e copia-lo no lugar da nossa imagem total.svg e adicionar um classe **svg**.
+Nosso card total vai ficar assim:
 
-```js
-document.querySelector('#img-total').src = `./assets/total-${COLOR_THEME}.svg`
+```html
+<div class="card total">
+  <h3>
+    <span>Total</span>
+    <svg class="svg" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path  d="M16 1.33333V30.6667" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path  d="M22.6667 6.66667H12.6667C11.429 6.66667 10.242 7.15834 9.36684 8.03351C8.49167 8.90868 8 10.0957 8 11.3333C8 12.571 8.49167 13.758 9.36684 14.6332C10.242 15.5083 11.429 16 12.6667 16H19.3333C20.571 16 21.758 16.4917 22.6332 17.3668C23.5083 18.242 24 19.429 24 20.6667C24 21.9043 23.5083 23.0913 22.6332 23.9665C21.758 24.8417 20.571 25.3333 19.3333 25.3333H8" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </h3>
+  <p>R$ 3.000,00</p>
+</div>
+```
+
+Agora podemos adicionar um **CSS** para alterar a cor do nosso **SVG**.
+
+```css
+.svg {
+  stroke: var(--light-color-base);
+}
 ```
 
 O próximo passo é percorrer todas as `rules` e pegar as que contem o parâmetro `media`, para isso vamos usar um `for`.
@@ -169,9 +186,9 @@ Eu adicionei dentro no nosso `header` uma div contento nosso link e logo:
 
 ```html
 <div class="header">
-      <a class="color-mode button" onclick="switchTheme()">Alternar Tema</a>
-      <img class="logo" src="./assets/logo.svg" alt="Logo Dev Finances">
-    </div>
+  <a class="color-mode button" onclick="switchTheme()">Alternar Tema</a>
+  <img class="logo" src="./assets/logo.svg" alt="Logo Dev Finances">
+</div>
 ```
 Dentro dele coloquei duas classes para usarmos no nosso arquivo CSS e a chamada `onclick` para executar a nossa função.
 

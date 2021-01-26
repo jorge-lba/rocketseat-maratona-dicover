@@ -68,6 +68,7 @@ h2 {
 a {
   color: var(--green);
   text-decoration: none;
+  cursor: pointer;
 }
 
 a:hover{
@@ -350,4 +351,9 @@ footer {
 
   }
 
+}
+
+/* SVG ======================================================= */
+.svg {
+  stroke: var(--light-color-base);
 }
