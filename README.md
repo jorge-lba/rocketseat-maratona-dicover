@@ -263,3 +263,49 @@ function switchTheme() {
 ```
 
 Vi a possibilidade de reduzir algumas linhas, modificar o nome de uma variável para ficar mais clara o que ela representa e adicionar um `for of` que tem basicamente o mesmo funcionamento do `for`, mas é mais pratico para percorrer objetos.
+
+Ao rodar o projeto no meu celular, percebi que ele só mudava de tema a partir do segundo clique.
+
+Como meu celular já iniciava no modo dark o nosso replace não funcionava na primeira execução, para resolver isso alterai algumas coisa no nosso **javascript**.
+
+Primeira mente removi a variável `COLOR_THEME`, ela não vai ser mais necessária para nossa nova lógica. 
+
+Agora vamos adicionar uma nova função que vai verificar qual o tema está marcado no nosso `@media` que representa o nosso modo `dark` no CSS e retornar o valor atual e o que queremos adicionar como novo.
+
+```js
+const invertTheme = (mediaText) => mediaText.indexOf('dark') > -1
+  ? ['dark', 'light']
+  : ['light', 'dark']
+```
+
+Vamos ver nossa nova função `switchTheme`.
+
+```js
+function switchTheme() {  
+  const cssRules = window.document.styleSheets[0].cssRules
+ 
+  for (const rule of cssRules) {
+    let media = rule.media
+    
+    if (media) {
+      const [currentTheme, nextTheme] = invertTheme(media.mediaText)
+
+      media.mediaText = media
+      .mediaText
+      .replace(
+        "(prefers-color-scheme: " + currentTheme + ")", 
+        "(prefers-color-scheme: " + nextTheme + ")",
+      )
+    }
+  }
+}
+```
+
+Ela continua parecida com a anterior, mas removemos algumas variáveis que eram criadas logo no inicio e adicionei nossa nova função `invertTheme` dentro do `for of`.
+
+```js
+const [currentTheme, nextTheme] = invertTheme(media.mediaText)
+```
+Caso você ainda não esteja familiarizado com essa forma de criar variáveis, ela se chama [desestruturação](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Operators/Atribuicao_via_desestruturacao). O que acontece é que quando recebemos nossa array da função `invertTheme` ele extrai os valores e colocas dentro das variáveis `currentTheme` e `nextTheme`.
+
+Depois disso nossa função continua igual a anterior, fazendo o replace(substituir) do testo da nossa **At-Rule** do tema.
