@@ -26,22 +26,18 @@ function switchTheme() {
     ? 'dark'
     : 'light'
 
-  const rules = window.document.styleSheets[0].cssRules
+  const cssRules = window.document.styleSheets[0].cssRules
  
-  for (i = 0; i < rules.length; i++) {
-    let media = rules[i].media
+  for (const rule of cssRules) {
+    let media = rule.media
     
-    if (media == undefined) {
-      continue
-    }
-    
-    let item = media
+    if (media) {
+      media.mediaText = media
       .mediaText
       .replace(
-        "(prefers-color-scheme: " + COLOR_THEME + ")", 
-        "(prefers-color-scheme: " + currentTheme + ")"
+        "(prefers-color-scheme: " + currentTheme + ")", 
+        "(prefers-color-scheme: " + COLOR_THEME + ")"
       )
-
-    media.mediaText = item
+    }
   }
 }
