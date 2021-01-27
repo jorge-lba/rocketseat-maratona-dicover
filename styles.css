@@ -8,6 +8,8 @@
   --table-color-base: #FFF;
   --background-color-header: #2D4A22;
   --background-color: #F0F2F5;
+
+  --image-github: url(./assets/GitHub-Mark-64px.svg);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,6 +22,8 @@
     --table-color-base: #121212;
     --background-color-header: #121212;
     --background-color:#1f1b24;
+
+    --image-github: url(./assets/GitHub-Mark-Light-64px.svg);
   }
 }
 
@@ -37,6 +41,7 @@ html {
 body {
   background: var(--background-color);
   font-family: 'Poppins', sans-serif;
+  transition: 0.3s;
 }
 
 .sr-only {
@@ -331,11 +336,28 @@ input {
 
 /* Footer ================================================= */
 footer {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  width: min( 90vw, 800px );
+  margin: auto;
+
   text-align: center;
   padding: 4rem 0 2rem;
   color: var( --font-color-base );
 
   opacity: 0.6;
+}
+
+.github {
+  width: 30px;
+  height: 30px;
+
+  margin: 0 10px;
+
+  background-image: var(--image-github);
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
 }
 
 /* Responsive ================================================= */
