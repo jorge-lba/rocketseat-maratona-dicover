@@ -31,7 +31,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border-radius:0.1px
+  border-radius:0.1px;
 }
 
 html {
@@ -218,6 +218,8 @@ header {
   width: 100%;
   border-spacing: 0 0.5rem;
   color: #969CB3;  
+
+  white-space: nowrap;
 }
 
 table thead tr th:first-child, 
@@ -319,7 +321,7 @@ input {
   margin-top: 0.8rem;
 }
 
-.input-group small {
+.input-group .help {
   opacity: 0.4;
 }
 

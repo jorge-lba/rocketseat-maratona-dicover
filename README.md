@@ -8,7 +8,7 @@ Como o objetivo da maratona é criar um projeto voltado para o publico mais inic
 
 ---
 ### Variáveis CSS
-De inicio vamos ter que separar todas as cores do nosso **CSS** em variáveis assim como o Mayk fazes com algumas cores na aula 2.
+De inicio vamos ter que separar todas as cores do nosso **CSS** em variáveis assim como o Mayk fez com algumas cores na aula 2.
 
 Segue um exemplo de como separei minhas variáveis:
 
