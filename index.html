@@ -17,13 +17,21 @@
     <div class="header">
       <a class="color-mode button" onclick="switchTheme()">Alternar Tema</a>
       <img class="logo" src="./assets/logo.svg" alt="Logo Dev Finances">
+      <div id="wallet-selected">
+        <span >Carteira :</span>
+        <a 
+          href="#" 
+          class="button wallet"
+          id="wallet-selected-name"
+          onclick="Modal.toggle('modal-wallets')"
+        >Nome</a>
+      </div>
     </div>
   </header>
-
-  <main class="container dark">
+  
+  <main class="container">
     <section id="balance">
       <h2 class="sr-only">Balanço</h2>
-
       <div class="card">
         <h3>
           <span>Entradas</span>
@@ -55,7 +63,7 @@
     <a 
       href="#" 
       class="button new"
-      onclick="Modal.toggle()"
+      onclick="Modal.toggle('transaction')"
     >+ Nova Transação</a>
 
     <section id="transaction">
@@ -77,7 +85,7 @@
     </section>
   </main>
 
-  <div class="modal-overlay">
+  <div class="modal-overlay transaction">
     <div class="modal">
       <div id="form">
         <h2>Nova Transação</h2>
@@ -124,12 +132,41 @@
             <a 
               href="#" 
               class="button cancel"
-              onclick="Modal.toggle()"
+              onclick="Modal.toggle('transaction')"
               >Cancelar</a>
             <button>Salvar</button>
           </div>
         </form>
       </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay modal-wallets ">
+    <div class="modal modal-wallets">
+      <div class="form-wallets">
+        <h2>Carteiras</h2>
+        <form id="form-wallets" action="" onsubmit="WalletForm.submit(event)">
+          <input 
+            type="text" 
+            name="wallet-name" 
+            id="wallet-name"
+            placeholder="Nome da Carteira"
+          >
+          <button>Adicionar</button>
+        </form>
+      </div>
+      <hr>
+      <table id="wallets-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Total</th>
+            <th class="remove-wallet"></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
     </div>
   </div>
 

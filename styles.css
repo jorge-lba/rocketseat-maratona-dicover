@@ -101,6 +101,10 @@ button {
   cursor: pointer;
 }
 
+.button {
+  cursor: pointer;
+}
+
 button:hover {
   background: var(--light-green);
 }
@@ -149,7 +153,7 @@ button:hover {
 /* Header ================================================= */
 header {
   background: var(--background-color-header);
-  padding: 0 0 12rem;
+  padding: 0 0 9rem;
   text-align: center;
 }
 
@@ -162,6 +166,46 @@ header {
 
 .logo {
   margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+
+#wallet-selected {
+  width: min( 90vw, 800px );
+  
+  display: flex;
+  justify-content: left;
+  align-items: center;
+
+  text-align: left;
+}
+
+#wallet-selected span {
+  color: #FFF;
+  margin-right: 5px;
+  font-weight: 200;
+}
+
+#wallet-selected a {
+  font-weight: 700;
+  color: #FFF;
+
+  font-size: 16px;
+
+  padding: 0 10px;
+
+  border: 1px solid #FFF;
+  border-radius: 0.2rem;
+
+  transition: .2s;
+}
+
+#wallet-selected a:hover {
+  color: var(--light-green);
+  border: 1px solid var(--light-green);
+
+  transition: .2s;
+
 }
 
 /* Balance ================================================= */
@@ -268,7 +312,7 @@ td.expense {
   color: var(--expense-color);
 }
 
-/* Modal ================================================= */
+/* Modal Transitions ================================================= */
 .modal-overlay {
   width: 100%;
   height: 100%;
@@ -299,7 +343,7 @@ td.expense {
   margin: 1.4rem;
 }
 
-/* Form ================================================= */
+/* Form Transactions ================================================= */
 #form {
   max-width: 500px;
 }
@@ -334,6 +378,57 @@ input {
 .input-group.actions .button,
 .input-group.actions button {
   width: 48%;
+}
+
+/* Modal Wallets ================================================= */
+.modal-wallets {
+  width: 100%;
+}
+
+.modal-wallets hr {
+  margin-top: 20px;
+  border: 2px solid var(--font-color-base);
+  opacity: .4;
+}
+
+.modal.modal-wallets {
+  width: min( 90vw, 800px );
+}
+/* Form Wallets ================================================= */
+
+#form-wallets {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-wallets input {
+  border: none;
+  border-radius: 0.2rem;
+
+  padding: 0.8rem;
+
+  width: 65%;
+  height: 50px;
+
+}
+
+.form-wallets button {
+  width: 30%;
+}
+
+/* Wallets Table =========================================== */
+
+#wallets-table {
+  width: 100%;
+  border-spacing: 0 0.5rem;
+  color: #969CB3;  
+
+  white-space: nowrap;
+}
+
+#wallets-table .remove-wallet {
+  width: 50px;
 }
 
 /* Footer ================================================= */
