@@ -35,7 +35,7 @@ Vamos dar inicio a nossa implementação com nosso HTML, vamos criar um novo mod
 ```
 **obs.: estamos com a `class` `active` adicionada em nosso modal para ele ficar visível, depois de pronto vamos remover essa classe**
 
-[![](./assets/wallet_modal_html_form.svg)](./assets/wallet_modal_html_form.svg)
+[![](./assets/wallet_modal_html_form.svg)](https://github.com/jorge-lba/rocketseat-maratona-dicover/raw/refactoring/docs/assets/wallet_modal_html_form.svg)
 
 Até agora esse modal é bem simples, semelhante com o que foi criado para o cadastros de transações, porem com apenas um campo de input.
 Também foi utilizada a tag html [\<hr\>](https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/hr) que cria uma linha de divisão onde foi colocada.
@@ -74,7 +74,7 @@ Agora vamos adicionar uma tabela que vai receber nas carteiras cadastradas abaix
 
 Seu modal vai ficar parecido com isso:
 
-[![](./assets/wallet_modal_html_table.svg)](./assets/wallet_modal_html_table.svg)
+[![](./assets/wallet_modal_html_table.svg)](https://github.com/jorge-lba/rocketseat-maratona-dicover/raw/refactoring/docs/assets/wallet_modal_html_table.svg)
 
 Nossa tabela não está muito bonita agora mais está correta ^^
 
@@ -99,7 +99,7 @@ Primeiro o CSS que vai fazer algumas alterações no nosso modal.
   width: min( 90vw, 800px );
 }
 ```
-[![](./assets/wallet_modal_css_modal.svg)](./assets/wallet_modal_css_modal.svg)
+[![](./assets/wallet_modal_css_modal.svg)](https://raw.githubusercontent.com/jorge-lba/rocketseat-maratona-dicover/7ac827e4034964309f86e97a948edcf5b744b784/docs/assets/wallet_modal_css_modal.svg)
 
 São mudanças bem pequenas ^^
 
@@ -130,7 +130,7 @@ Agora vamos alterar um pouco o CSS do nosso forms:
 
 Ira ficar semelhante a esse:
 
-[![](./assets/wallet_modal_css_form.svg)](./assets/wallet_modal_css_form.svg)
+[![](./assets/wallet_modal_css_form.svg)](https://raw.githubusercontent.com/jorge-lba/rocketseat-maratona-dicover/7ac827e4034964309f86e97a948edcf5b744b784/docs/assets/wallet_modal_css_form.svg)
 
 Essa mudança deu para reparar melhor, nosso input ficou mais alto e o botão está menor e ao lado do input.
 
@@ -157,4 +157,8 @@ Finalmente vamos mexer nessa tabela, vamos adicionar o seguinte CSS:
   width: 50px;
 }
 ```
-[![](./assets/wallet_modal_complete.svg)](./assets/wallet_modal_complete.svg)
+[![](./assets/wallet_modal_complete.svg)](https://raw.githubusercontent.com/jorge-lba/rocketseat-maratona-dicover/7ac827e4034964309f86e97a948edcf5b744b784/docs/assets/wallet_modal_complete.svg)
+
+Nosso modal está finalizado, precisamos remover a class `active` de nosso modal para ele sair da nossa tela.
+
+

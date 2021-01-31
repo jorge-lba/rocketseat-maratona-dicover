@@ -247,6 +247,8 @@ header {
 
   margin-bottom: 2rem;
   color: var( --font-color-base );
+
+  white-space: nowrap;
 }
 
 .card h3 {
