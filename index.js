@@ -288,6 +288,7 @@ const Form = {
 
   }
 }
+
 const App = {
   init() {
     Transaction.all.transactions?.forEach(DOM.addTransaction)

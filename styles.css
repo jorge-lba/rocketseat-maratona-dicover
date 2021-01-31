@@ -419,6 +419,14 @@ input {
 
 /* Wallets Table =========================================== */
 
+#wallets {
+  display: flex;
+  width: 100%;
+
+  overflow-X: auto;
+}
+
+
 #wallets-table {
   width: 100%;
   border-spacing: 0 0.5rem;
