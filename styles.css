@@ -8,6 +8,7 @@
   --table-color-base: #FFF;
   --background-color-header: #2D4A22;
   --background-color: #F0F2F5;
+  --background-color-input:#FFF;
 
   --image-github: url(./assets/GitHub-Mark-64px.svg);
 }
@@ -22,6 +23,7 @@
     --table-color-base: #121212;
     --background-color-header: #121212;
     --background-color:#1f1b24;
+    --background-color-input: #3a3342;
 
     --image-github: url(./assets/GitHub-Mark-Light-64px.svg);
   }
@@ -59,6 +61,17 @@ body {
   width: min( 90vw, 800px );
   margin: auto;
 }
+
+input {
+  background-color: var(--background-color-input);
+  color: var(--font-color-base);
+}
+
+input::placeholder {
+  color: var(--font-color-base);
+  opacity: .6;
+}
+
 
 /* Titles ================================================= */
 h2 {
@@ -367,6 +380,7 @@ input {
 
 .input-group .help {
   opacity: 0.4;
+  color: var(--font-color-base);
 }
 
 .input-group.actions {
