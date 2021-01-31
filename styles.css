@@ -10,6 +10,8 @@
   --background-color: #F0F2F5;
   --background-color-input:#FFF;
 
+  --calendar-picker-mode: 0;
+
   --image-github: url(./assets/GitHub-Mark-64px.svg);
 }
 
@@ -24,6 +26,8 @@
     --background-color-header: #121212;
     --background-color:#1f1b24;
     --background-color-input: #3a3342;
+
+    --calendar-picker-mode:1;
 
     --image-github: url(./assets/GitHub-Mark-Light-64px.svg);
   }
@@ -72,6 +76,9 @@ input::placeholder {
   opacity: .6;
 }
 
+input::-webkit-calendar-picker-indicator {
+  filter: invert(var(--calendar-picker-mode));
+}
 
 /* Titles ================================================= */
 h2 {
