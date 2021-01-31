@@ -38,8 +38,8 @@ const Wallet = {
 
     Wallet.selected = Wallet.all[index]
     Transaction.all = Wallet.selected
-    App.reload()
 
+    App.reload()
   }
 }
 
@@ -77,32 +77,6 @@ const DOM = {
   transactionsContainer: document.querySelector('#data-table tbody'),
   walletsContainer: document.querySelector('#wallets-table tbody'),
 
-  addTransaction(transaction, index){
-    const tr = document.createElement('tr')
-    tr.innerHTML = DOM.innerHTMLTransaction(transaction, index)
-    tr.dataset.index = index
-
-    DOM.transactionsContainer.appendChild(tr)
-  },
-
-  innerHTMLTransaction(transaction, index) {
-    const { description, amount, date } = transaction
-
-    const CSSClass = amount > 0 ? 'income' : 'expense'
-
-    const newAmount = Utils.formatCurrency(amount)
-
-    const html = `
-    <td class="description">${description}</td>
-    <td class="${CSSClass}">${newAmount}</td>
-    <td call="date">${date}</td>
-    <td>
-      <img class="" onclick="Transaction.remove(${index})" src="./assets/minus.svg" alt="Remover transação">
-    </td>
-    `
-    return html
-  },
-
   addWallet(wallet, index){
     const tr = document.createElement('tr')
 
@@ -126,6 +100,32 @@ const DOM = {
     <td onclick="Wallet.select(${index})" class="${CSSClass} button">${newAmount}</td>
     <td>
       <img class="button" onclick="Wallet.remove(${index})" src="./assets/minus.svg" alt="Remover carteira">
+    </td>
+    `
+    return html
+  },
+
+  addTransaction(transaction, index){
+    const tr = document.createElement('tr')
+    tr.innerHTML = DOM.innerHTMLTransaction(transaction, index)
+    tr.dataset.index = index
+
+    DOM.transactionsContainer.appendChild(tr)
+  },
+
+  innerHTMLTransaction(transaction, index) {
+    const { description, amount, date } = transaction
+
+    const CSSClass = amount > 0 ? 'income' : 'expense'
+
+    const newAmount = Utils.formatCurrency(amount)
+
+    const html = `
+    <td class="description">${description}</td>
+    <td class="${CSSClass}">${newAmount}</td>
+    <td call="date">${date}</td>
+    <td>
+      <img class="" onclick="Transaction.remove(${index})" src="./assets/minus.svg" alt="Remover transação">
     </td>
     `
     return html
