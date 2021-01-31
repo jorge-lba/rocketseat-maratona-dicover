@@ -21,7 +21,7 @@ const Storage = {
 
 const Wallet = {
   all: Storage.get(),
-  selected: Storage.get()?.length > 0 ? Storage.get()[0] : Modal.toggle('modal-wallets'),
+  selected: Storage.get()[0] || Modal.toggle('modal-wallets'),
 
   add(wallet){
     wallet.transactions = []
