@@ -297,8 +297,9 @@ const App = {
 
     Storage.set(Wallet.all)
 
-    const walletName = document.querySelector('#wallet-selected-name')
-    walletName.innerHTML = Wallet.selected?.name
+    document
+      .querySelector('#wallet-selected-name')
+      .innerHTML = Transaction.all?.name || 'Crie um Carteira'
   },
 
   reload(){
