@@ -235,4 +235,5 @@ Vamos adicionar nosso CSS:
 ```
 
 Nosso botão vai se parecer com esse: 
-[![](./assets/wallet_select_button.svg)]()
+
+[![](./assets/wallet_select_button.svg)](https://raw.githubusercontent.com/jorge-lba/rocketseat-maratona-dicover/refactoring/docs/assets/wallet_select_button.svg)
