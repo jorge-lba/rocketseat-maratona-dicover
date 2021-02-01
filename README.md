@@ -5,7 +5,7 @@ Projeto para administração financeira pessoal, desenvolvido durante a **Marato
 ## Objetivo
 
 Alem de reforçar meus conhecimentos de front-end, utilizei o projeto para criar novas funcionalidades e fazer tutoriais de como implementa-las.
-Me esforcei para manter essas funcionalidades dentro do conhecimentos passador durante as **Maratona Discover**.
+Me esforcei para manter essas funcionalidades dentro do conhecimentos passados durante as **Maratona Discover**.
 
 As funcionalidades implementadas foram:
 
