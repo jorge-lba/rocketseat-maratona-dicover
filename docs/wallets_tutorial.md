@@ -5,7 +5,7 @@ Para essa implementação vou tentar manter o código com o mesmo nível de conh
 
 ## Objetivo
 
-Dar a possibilidade de criar mais de uma carteira para o controle financeiro, para mais de uma pessoa poder usar o mesmo navegador cadastrar suas finanças.
+Dar a possibilidade de criar mais de uma carteira para o controle financeiro, para mais de uma pessoa poder usar o mesmo navegador para cadastrar suas finanças.
 
 ## Modal
 
@@ -161,4 +161,78 @@ Finalmente vamos mexer nessa tabela, vamos adicionar o seguinte CSS:
 
 Nosso modal está finalizado, precisamos remover a class `active` de nosso modal para ele sair da nossa tela.
 
+## Botão para selecionar carteira
 
+Vamos dar inicio a criação do nosso botão, o html usado vai ser o seguinte:
+
+```html
+<div class="header">
+  <a class="color-mode button" onclick="switchTheme()">Alternar Tema</a>
+  <img class="logo" src="./assets/logo.svg" alt="Logo Dev Finances">
+  <div id="wallet-selected">
+    <span >Carteira :</span>
+    <a 
+      href="#" 
+      class="button wallet"
+      id="wallet-selected-name"
+      onclick="Modal.toggle('modal-wallets')"
+    >Nome</a>
+  </div>
+</div>
+```
+
+Dentro do nosso `header` adicionei uma div com a classe `header`, dentro dele temos o botão para alternar o tema (caso não tenha adicionado o modo dark, você pode implementar no [Tutorial Modo Escuro](./dark_mode_tutorial.md)), a logo, o `span` e o nosso botão para alterar a conta. 
+
+**obs.: No meu CSS fiz algumas alterações que não passarei nesse tutorial, ficara como desafio para você ajustar e fazer as coisas se encaixarem com o seu layout**
+
+Vamos adicionar nosso CSS:
+
+```css
+.header{
+  display: inline-block;
+
+  position: relative;
+  width: min( 90vw, 800px );
+}
+
+#wallet-selected {
+  width: min( 90vw, 800px );
+  
+  display: flex;
+  justify-content: left;
+  align-items: center;
+
+  text-align: left;
+}
+
+#wallet-selected span {
+  color: #FFF;
+  margin-right: 5px;
+  font-weight: 200;
+}
+
+#wallet-selected a {
+  font-weight: 700;
+  color: #FFF;
+
+  font-size: 16px;
+
+  padding: 0 10px;
+
+  border: 1px solid #FFF;
+  border-radius: 0.2rem;
+
+  transition: .2s;
+}
+
+#wallet-selected a:hover {
+  color: var(--light-green);
+  border: 1px solid var(--light-green);
+
+  transition: .2s;
+
+}
+```
+
+Nosso botão vai se parecer com esse: 
+[![](./assets/wallet_select_button.svg)]()
