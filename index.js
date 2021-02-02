@@ -1,99 +1,118 @@
-const wallets = ['Pessoal', 'Empresa']
+const wallets = ["Pessoal", "Empresa"];
 
 const Modal = {
-  toggle(value){
-    document.querySelector(`.modal-overlay.${value}`).classList.toggle('active')
-  }
-}
+  toggle(value) {
+    document
+      .querySelector(`.modal-overlay.${value}`)
+      .classList.toggle("active");
+  },
+};
 
 const Storage = {
-  get(){
-    return JSON.parse(localStorage.getItem(`dev.finances:wallets`)) || []
+  get() {
+    return JSON.parse(localStorage.getItem(`dev.finances:wallets`)) || [];
   },
 
-  set(wallets){
-    localStorage.setItem(
-      `dev.finances:wallets`, 
-      JSON.stringify(wallets)  
-    )
-  }
-}
+  set(wallets) {
+    localStorage.setItem(`dev.finances:wallets`, JSON.stringify(wallets));
+  },
+};
 
 const Wallet = {
   all: Storage.get(),
-  selected: Storage.get()[0] || Modal.toggle('modal-wallets'),
+  selected: Storage.get()[0] || Modal.toggle("modal-wallets"),
 
-  add(wallet){
-    wallet.transactions = []
-    Wallet.all.push(wallet)
+  add(wallet) {
+    wallet.transactions = [];
+    Wallet.all.push(wallet);
   },
 
-  remove(index){
-    Wallet.all.splice(index, 1)
-    App.reload()
+  remove(index) {
+    Wallet.all.splice(index, 1);
+    App.reload();
   },
 
-  select(index){
-    Modal.toggle('modal-wallets')
+  select(index) {
+    Modal.toggle("modal-wallets");
 
-    Wallet.selected = Wallet.all[index]
-    Transaction.all = Wallet.selected
+    Wallet.selected = Wallet.all[index];
+    Transaction.all = Wallet.selected;
 
-    App.reload()
-  }
-}
+    App.reload();
+  },
+
+  export() {
+    const wallet = [JSON.stringify(Wallet.selected)];
+    const blob = new Blob(wallet, {
+      type: "application/json",
+    });
+    const link = window.document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = `wallet-${Wallet.selected?.name
+      .trim()
+      .replace(" ", "-")}.json`;
+    link.click();
+    window.URL.revokeObjectURL(link.href);
+    return;
+  },
+};
 
 const Transaction = {
   all: Wallet.selected || [],
 
-  add(transaction){
-    Transaction.all.transactions.push(transaction)
-    App.reload()
+  add(transaction) {
+    Transaction.all.transactions.push(transaction);
+    App.reload();
   },
 
-  remove(index){
-    Transaction.all.transactions.splice(index, 1)
-    App.reload()
+  remove(index) {
+    Transaction.all.transactions.splice(index, 1);
+    App.reload();
   },
 
-  incomes(transactions = Transaction.all.transactions){
-    return transactions?.reduce((total, {amount}) => 
-      amount > 0 ? amount + total: total
-    , 0)
+  incomes(transactions = Transaction.all.transactions) {
+    return transactions?.reduce(
+      (total, { amount }) => (amount > 0 ? amount + total : total),
+      0
+    );
   },
 
-  expenses(transactions = Transaction.all.transactions){
-    return transactions?.reduce((total, {amount}) => 
-      amount < 0 ? amount + total: total
-    , 0)
+  expenses(transactions = Transaction.all.transactions) {
+    return transactions?.reduce(
+      (total, { amount }) => (amount < 0 ? amount + total : total),
+      0
+    );
   },
 
-  total(transactions = Transaction.all.transactions){
-    return transactions?.reduce((total, {amount}) => amount + total, 0)
-  }
-}
+  total(transactions = Transaction.all.transactions) {
+    return transactions?.reduce((total, { amount }) => amount + total, 0);
+  },
+};
 
 const DOM = {
-  transactionsContainer: document.querySelector('#data-table tbody'),
-  walletsContainer: document.querySelector('#wallets-table tbody'),
+  transactionsContainer: document.querySelector("#data-table tbody"),
+  walletsContainer: document.querySelector("#wallets-table tbody"),
 
-  addWallet(wallet, index){
-    const tr = document.createElement('tr')
+  addWallet(wallet, index) {
+    const tr = document.createElement("tr");
 
-    tr.innerHTML = DOM.innerHTMLWallet(wallet, index)
-    tr.dataset.index = index
+    tr.innerHTML = DOM.innerHTMLWallet(wallet, index);
+    tr.dataset.index = index;
 
-    DOM.walletsContainer.appendChild(tr)
+    DOM.walletsContainer.appendChild(tr);
   },
 
-  innerHTMLWallet( wallet, index ) {
-    const { name, transactions } = wallet
+  innerHTMLWallet(wallet, index) {
+    const { name, transactions } = wallet;
 
-    const amount = transactions?.reduce((current, next) => current + next.amount, 0)
-  
-    const CSSClass = amount > 0 ? 'income' : 'expense'
+    const amount = transactions?.reduce(
+      (current, next) => current + next.amount,
+      0
+    );
 
-    const newAmount = Utils.formatCurrency(amount)
+    const CSSClass = amount > 0 ? "income" : "expense";
+
+    const newAmount = Utils.formatCurrency(amount);
 
     const html = `
     <td onclick="Wallet.select(${index})" class="name button">${name}</td>
@@ -101,24 +120,24 @@ const DOM = {
     <td>
       <img class="button" onclick="Wallet.remove(${index})" src="./assets/minus.svg" alt="Remover carteira">
     </td>
-    `
-    return html
+    `;
+    return html;
   },
 
-  addTransaction(transaction, index){
-    const tr = document.createElement('tr')
-    tr.innerHTML = DOM.innerHTMLTransaction(transaction, index)
-    tr.dataset.index = index
+  addTransaction(transaction, index) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = DOM.innerHTMLTransaction(transaction, index);
+    tr.dataset.index = index;
 
-    DOM.transactionsContainer.appendChild(tr)
+    DOM.transactionsContainer.appendChild(tr);
   },
 
   innerHTMLTransaction(transaction, index) {
-    const { description, amount, date } = transaction
+    const { description, amount, date } = transaction;
 
-    const CSSClass = amount > 0 ? 'income' : 'expense'
+    const CSSClass = amount > 0 ? "income" : "expense";
 
-    const newAmount = Utils.formatCurrency(amount)
+    const newAmount = Utils.formatCurrency(amount);
 
     const html = `
     <td class="description">${description}</td>
@@ -127,210 +146,207 @@ const DOM = {
     <td>
       <img class="" onclick="Transaction.remove(${index})" src="./assets/minus.svg" alt="Remover transação">
     </td>
-    `
-    return html
+    `;
+    return html;
   },
 
   updateBalance() {
-    document
-      .getElementById('incomeDisplay')
-      .innerHTML = Utils.formatCurrency(Transaction.incomes())
+    document.getElementById("incomeDisplay").innerHTML = Utils.formatCurrency(
+      Transaction.incomes()
+    );
 
-    document
-      .getElementById('expenseDisplay')
-      .innerHTML = Utils.formatCurrency(Transaction.expenses())
+    document.getElementById("expenseDisplay").innerHTML = Utils.formatCurrency(
+      Transaction.expenses()
+    );
 
-    document
-      .getElementById('totalDisplay')
-      .innerHTML = Utils.formatCurrency(Transaction.total())
+    document.getElementById("totalDisplay").innerHTML = Utils.formatCurrency(
+      Transaction.total()
+    );
   },
 
-  clearTransactions(){
-    DOM.transactionsContainer.innerHTML = ''
+  clearTransactions() {
+    DOM.transactionsContainer.innerHTML = "";
   },
 
-  clearWallets(){
-    DOM.walletsContainer.innerHTML = ''
-  }
-}
+  clearWallets() {
+    DOM.walletsContainer.innerHTML = "";
+  },
+};
 
 const Utils = {
-  formatAmount(value){
-    value = Number(value)*100
-    return Math.round(value)
+  formatAmount(value) {
+    value = Number(value) * 100;
+    return Math.round(value);
   },
 
-  formatDate(date){
-    const [ year, month, day ] = date.split('-')
-    return `${day}/${month}/${year}`
+  formatDate(date) {
+    const [year, month, day] = date.split("-");
+    return `${day}/${month}/${year}`;
   },
 
-  formatCurrency(value){
-    const signal = Number(value) < 0 ? '-' : ''
+  formatCurrency(value) {
+    const signal = Number(value) < 0 ? "-" : "";
 
-    value = String(value).replace(/\D/g, '')
+    value = String(value).replace(/\D/g, "");
 
-    value = Number(value) / 100
+    value = Number(value) / 100;
 
-    value = value.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    })
+    value = value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
 
-    return signal + value
-  }
-}
+    return signal + value;
+  },
+};
 
 const WalletForm = {
-  name:document.querySelector('input#wallet-name'),
+  name: document.querySelector("input#wallet-name"),
 
-  getValues(){
-    return { name: WalletForm.name.value }
+  getValues() {
+    return { name: WalletForm.name.value };
   },
 
-  validadeFields(){
-    const { name } = WalletForm.getValues()
-    if( name === ''){
-      throw new Error('Por favor, preencha todos os campos.')
-    } 
-  },
-
-  formatValues(){
-    let { name } = WalletForm.getValues()
-    return { name: name.replace(/ +/g, ' ').trim() }
-  },
-
-  saveWallet(wallet){
-    Wallet.add(wallet)
-  },
-
-  clearFields(){ WalletForm.name.value = '' },
-
-  submit(event){
-    event.preventDefault()
-    try {
-      WalletForm.validadeFields()
-      const wallet = WalletForm.formatValues()
-
-      WalletForm.saveWallet(wallet)
-
-      WalletForm.clearFields()
-
-      DOM.clearWallets()
-      Wallet.all.forEach(DOM.addWallet)
-    } catch (error) {
-      alert(error.message)
+  validadeFields() {
+    const { name } = WalletForm.getValues();
+    if (name === "") {
+      throw new Error("Por favor, preencha todos os campos.");
     }
+  },
 
-  }
-}
+  formatValues() {
+    let { name } = WalletForm.getValues();
+    return { name: name.replace(/ +/g, " ").trim() };
+  },
+
+  saveWallet(wallet) {
+    Wallet.add(wallet);
+  },
+
+  clearFields() {
+    WalletForm.name.value = "";
+  },
+
+  submit(event) {
+    event.preventDefault();
+    try {
+      WalletForm.validadeFields();
+      const wallet = WalletForm.formatValues();
+
+      WalletForm.saveWallet(wallet);
+
+      WalletForm.clearFields();
+
+      DOM.clearWallets();
+      Wallet.all.forEach(DOM.addWallet);
+    } catch (error) {
+      alert(error.message);
+    }
+  },
+};
 
 const Form = {
-  description:document.querySelector('input#description'),
-  amount:document.querySelector('input#amount'),
-  date:document.querySelector('input#date'),
+  description: document.querySelector("input#description"),
+  amount: document.querySelector("input#amount"),
+  date: document.querySelector("input#date"),
 
-  getValues(){
+  getValues() {
     return {
-      description: Form.description.value.replace(/ +/g, ' ').trim(),
+      description: Form.description.value.replace(/ +/g, " ").trim(),
       amount: Form.amount.value,
-      date: Form.date.value
+      date: Form.date.value,
+    };
+  },
+
+  validadeFields() {
+    const { description, amount, date } = Form.getValues();
+    if (
+      description.trim() === "" ||
+      amount.trim() === "" ||
+      date.trim() === ""
+    ) {
+      throw new Error("Por favor, preencha todos os campos.");
     }
   },
 
-  validadeFields(){
-    const { description, amount, date } = Form.getValues()
-    if( description.trim() === '' 
-      || amount.trim() === '' 
-      || date.trim() === ''
-    ){
-      throw new Error('Por favor, preencha todos os campos.')
-    } 
-  },
-
-  formatValues(){
-    let { description, amount, date } = Form.getValues()
-    amount = Utils.formatAmount(amount)
-    date = Utils.formatDate(date)
+  formatValues() {
+    let { description, amount, date } = Form.getValues();
+    amount = Utils.formatAmount(amount);
+    date = Utils.formatDate(date);
 
     return {
-      description, 
-      amount, 
-      date 
-    }
+      description,
+      amount,
+      date,
+    };
   },
 
-  saveTransaction(transaction){
-    Transaction.add(transaction)
+  saveTransaction(transaction) {
+    Transaction.add(transaction);
   },
 
-  clearFields(){
-    Form.description.value = '',
-    Form.amount.value = '',
-    Form.date.value = ''
+  clearFields() {
+    (Form.description.value = ""),
+      (Form.amount.value = ""),
+      (Form.date.value = "");
   },
 
-  submit(event){
-    event.preventDefault()
+  submit(event) {
+    event.preventDefault();
 
     try {
-      Form.validadeFields()
-      const transaction = Form.formatValues()
+      Form.validadeFields();
+      const transaction = Form.formatValues();
 
-      Form.saveTransaction(transaction)
+      Form.saveTransaction(transaction);
 
-      Form.clearFields()
+      Form.clearFields();
 
-      Modal.toggle('transaction')
+      Modal.toggle("transaction");
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-
-  }
-}
+  },
+};
 
 const App = {
   init() {
-    Transaction.all.transactions?.forEach(DOM.addTransaction)
-    Wallet.all.forEach(DOM.addWallet)
+    Transaction.all.transactions?.forEach(DOM.addTransaction);
+    Wallet.all.forEach(DOM.addWallet);
 
-    DOM.updateBalance()
+    DOM.updateBalance();
 
-    Storage.set(Wallet.all)
+    Storage.set(Wallet.all);
 
-    document
-      .querySelector('#wallet-selected-name')
-      .innerHTML = Transaction.all?.name || 'Crie um Carteira'
+    document.querySelector("#wallet-selected-name").innerHTML =
+      Transaction.all?.name || "Crie um Carteira";
   },
 
-  reload(){
-    DOM.clearTransactions()
-    DOM.clearWallets()
-    this.init()
-  }
-}
+  reload() {
+    DOM.clearTransactions();
+    DOM.clearWallets();
+    this.init();
+  },
+};
 
-App.init()
+App.init();
 
-const invertTheme = (mediaText) => mediaText.indexOf('dark') > -1
-  ? ['dark', 'light']
-  : ['light', 'dark']
+const invertTheme = (mediaText) =>
+  mediaText.indexOf("dark") > -1 ? ["dark", "light"] : ["light", "dark"];
 
-function switchTheme() {  
-  const cssRules = window.document.styleSheets[0].cssRules
- 
+function switchTheme() {
+  const cssRules = window.document.styleSheets[0].cssRules;
+
   for (const rule of cssRules) {
-    let media = rule.media
-    
-    if (media) {
-      const [currentTheme, nextTheme] = invertTheme(media.mediaText)
+    let media = rule.media;
 
-      media.mediaText = media
-      .mediaText
-      .replace(
-        "(prefers-color-scheme: " + currentTheme + ")", 
-        "(prefers-color-scheme: " + nextTheme + ")",
-      )
+    if (media) {
+      const [currentTheme, nextTheme] = invertTheme(media.mediaText);
+
+      media.mediaText = media.mediaText.replace(
+        "(prefers-color-scheme: " + currentTheme + ")",
+        "(prefers-color-scheme: " + nextTheme + ")"
+      );
     }
   }
 }
