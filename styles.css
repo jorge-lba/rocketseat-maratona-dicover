@@ -1,33 +1,36 @@
 /* Global ================================================== */
 :root {
-  --font-color-base: #363F5F;
-  --green: #49AA26;
-  --light-green: #3DD705;
-  --expense-color: #E92929;
-  --light-color-base: #FFF;
-  --table-color-base: #FFF;
-  --background-color-header: #2D4A22;
-  --background-color: #F0F2F5;
-  --background-color-input:#FFF;
+  --font-color-base: #363f5f;
+  --green: #49aa26;
+  --light-green: #3dd705;
+  --expense-color: #e92929;
+  --light-color-base: #fff;
+  --table-color-base: #fff;
+  --background-color-header: #2d4a22;
+  --background-color: #f0f2f5;
+  --background-color-input: #fff;
 
   --calendar-picker-mode: 0;
+
+  --svg-filter: invert(30%) sepia(79%) saturate(2476%) hue-rotate(100deg)
+    brightness(118%) contrast(119%);
 
   --image-github: url(./assets/GitHub-Mark-64px.svg);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --font-color-base: #F0F2F5;
+    --font-color-base: #f0f2f5;
     --green: #49aa26;
     --light-green: #555;
-    --expense-color: #E92929;
+    --expense-color: #e92929;
     --light-color-base: #1f1b24;
     --table-color-base: #121212;
     --background-color-header: #121212;
-    --background-color:#1f1b24;
+    --background-color: #1f1b24;
     --background-color-input: #3a3342;
 
-    --calendar-picker-mode:1;
+    --calendar-picker-mode: 1;
 
     --image-github: url(./assets/GitHub-Mark-Light-64px.svg);
   }
@@ -37,16 +40,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border-radius:0.1px;
+  border-radius: 0.1px;
 }
 
 html {
-  font-size: 93.75%
+  font-size: 93.75%;
 }
 
 body {
   background: var(--background-color);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   transition: 0.3s;
 }
 
@@ -62,7 +65,7 @@ body {
 }
 
 .container {
-  width: min( 90vw, 800px );
+  width: min(90vw, 800px);
   margin: auto;
 }
 
@@ -73,7 +76,7 @@ input {
 
 input::placeholder {
   color: var(--font-color-base);
-  opacity: .6;
+  opacity: 0.6;
 }
 
 input::-webkit-calendar-picker-indicator {
@@ -84,7 +87,7 @@ input::-webkit-calendar-picker-indicator {
 h2 {
   margin-top: 3.2rem;
   margin-bottom: 0.8rem;
-  color:var( --font-color-base );
+  color: var(--font-color-base);
 
   font-weight: normal;
 }
@@ -96,7 +99,7 @@ a {
   cursor: pointer;
 }
 
-a:hover{
+a:hover {
   color: var(--light-green);
 }
 
@@ -170,6 +173,26 @@ button:hover {
   border: 1px solid var(--light-green);
 }
 
+#options-transactions {
+  display: flex;
+  margin-bottom: 0.8rem;
+  justify-content: space-between;
+}
+
+#options-transactions img {
+  filter: var(--svg-filter);
+}
+
+a.button.extract {
+  color: var(--font-color-base);
+  display: flex;
+  align-items: center;
+}
+
+a.button.extract:hover {
+  filter: brightness(150%);
+}
+
 /* Header ================================================= */
 header {
   background: var(--background-color-header);
@@ -177,11 +200,11 @@ header {
   text-align: center;
 }
 
-.header{
+.header {
   display: inline-block;
 
   position: relative;
-  width: min( 90vw, 800px );
+  width: min(90vw, 800px);
 }
 
 .logo {
@@ -189,10 +212,9 @@ header {
   margin-bottom: 2rem;
 }
 
-
 #wallet-selected {
-  width: min( 90vw, 800px );
-  
+  width: min(90vw, 800px);
+
   display: flex;
   justify-content: left;
   align-items: center;
@@ -201,31 +223,30 @@ header {
 }
 
 #wallet-selected span {
-  color: #FFF;
+  color: #fff;
   margin-right: 5px;
   font-weight: 200;
 }
 
 #wallet-selected a {
   font-weight: 700;
-  color: #FFF;
+  color: #fff;
 
   font-size: 16px;
 
   padding: 0 10px;
 
-  border: 1px solid #FFF;
+  border: 1px solid #fff;
   border-radius: 0.2rem;
 
-  transition: .2s;
+  transition: 0.2s;
 }
 
 #wallet-selected a:hover {
   color: var(--light-green);
   border: 1px solid var(--light-green);
 
-  transition: .2s;
-
+  transition: 0.2s;
 }
 
 /* Balance ================================================= */
@@ -243,10 +264,12 @@ header {
   padding: 1.5rem 2rem;
   border-radius: 0.25rem;
 
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
 
   margin-bottom: 2rem;
-  color: var( --font-color-base );
+  color: var(--font-color-base);
+
+  white-space: nowrap;
 }
 
 .card h3 {
@@ -275,23 +298,23 @@ header {
   display: block;
   width: 100%;
 
-  overflow-X: auto;
+  overflow-x: auto;
 }
 
 #data-table {
   width: 100%;
   border-spacing: 0 0.5rem;
-  color: #969CB3;  
+  color: #969cb3;
 
   white-space: nowrap;
 }
 
-table thead tr th:first-child, 
+table thead tr th:first-child,
 table thead tr td:first-child {
   border-radius: 0.25rem 0 0 0.25rem;
 }
 
-table thead tr th:last-child, 
+table thead tr th:last-child,
 table thead tr td:last-child {
   border-radius: 0 0.25rem 0.25rem 0;
 }
@@ -309,11 +332,10 @@ table tbody td {
   background: var(--table-color-base);
 
   padding: 1rem 2rem;
-    
 }
 
 table tbody tr {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 table tbody tr:hover {
@@ -325,7 +347,7 @@ td.description {
 }
 
 td.income {
-  color: #12A454;
+  color: #12a454;
 }
 
 td.expense {
@@ -409,11 +431,11 @@ input {
 .modal-wallets hr {
   margin-top: 20px;
   border: 2px solid var(--font-color-base);
-  opacity: .4;
+  opacity: 0.4;
 }
 
 .modal.modal-wallets {
-  width: min( 90vw, 800px );
+  width: min(90vw, 800px);
 }
 /* Form Wallets ================================================= */
 
@@ -431,7 +453,6 @@ input {
 
   width: 65%;
   height: 50px;
-
 }
 
 .form-wallets button {
@@ -444,14 +465,13 @@ input {
   display: flex;
   width: 100%;
 
-  overflow-X: auto;
+  overflow-x: auto;
 }
-
 
 #wallets-table {
   width: 100%;
   border-spacing: 0 0.5rem;
-  color: #969CB3;  
+  color: #969cb3;
 
   white-space: nowrap;
 }
@@ -463,18 +483,18 @@ input {
 /* Footer ================================================= */
 footer {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
-  width: min( 90vw, 800px );
+  width: min(90vw, 800px);
   margin: auto;
 
   text-align: center;
   padding: 4rem 0 2rem;
-  color: var( --font-color-base );
+  color: var(--font-color-base);
 }
 
 footer p {
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .github {
@@ -487,12 +507,12 @@ footer p {
   background-repeat: no-repeat;
   background-size: 30px 30px;
 
-  transition: .2s;
-  opacity: .6;
+  transition: 0.2s;
+  opacity: 0.6;
 }
 
 .github:hover {
-  transition: .2s;
+  transition: 0.2s;
   opacity: 0.9;
 }
 
@@ -506,9 +526,7 @@ footer p {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-
   }
-
 }
 
 /* SVG ======================================================= */

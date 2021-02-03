@@ -1,83 +1,133 @@
 const wallets = ['Pessoal', 'Empresa']
 
 const Modal = {
-  toggle(value){
-    document.querySelector(`.modal-overlay.${value}`).classList.toggle('active')
-  }
+  toggle(value) {
+    document
+      .querySelector(`.modal-overlay.${value}`)
+      .classList.toggle('active')
+  },
 }
 
 const Storage = {
-  get(){
-    return JSON.parse(localStorage.getItem(`dev.finances:wallets`)) || []
+  get() {
+    return (
+      JSON.parse(localStorage.getItem(`dev.finances:wallets`)) || []
+    )
   },
 
-  set(wallets){
+  set(wallets) {
     localStorage.setItem(
-      `dev.finances:wallets`, 
-      JSON.stringify(wallets)  
+      `dev.finances:wallets`,
+      JSON.stringify(wallets)
     )
-  }
+  },
 }
 
 const Wallet = {
   all: Storage.get(),
   selected: Storage.get()[0] || Modal.toggle('modal-wallets'),
+  index: 0,
 
-  add(wallet){
-    wallet.transactions = []
+  update() {
+    Wallet.all[Wallet.index] = Wallet.selected
+  },
+
+  add(wallet) {
+    if (!wallet.transactions) wallet.transactions = []
     Wallet.all.push(wallet)
   },
 
-  remove(index){
+  remove(index) {
     Wallet.all.splice(index, 1)
     App.reload()
   },
 
-  select(index){
+  select(index) {
     Modal.toggle('modal-wallets')
 
     Wallet.selected = Wallet.all[index]
     Transaction.all = Wallet.selected
+    Wallet.index = index
 
     App.reload()
-  }
+  },
+
+  export() {
+    const wallet = JSON.stringify(Wallet.selected)
+    Utils.downloadFile(
+      wallet,
+      `wallet-${Wallet.selected?.name}.json`,
+      'application/json'
+    )
+    return
+  },
+
+  extract() {
+    const transactions = Transaction.all.transactions
+    const incomes = Transaction.incomes()
+    const expenses = Transaction.expenses()
+    const total = Transaction.total()
+
+    const currentDate = new Date()
+    const date = currentDate.toLocaleDateString('pt-br')
+    const time = currentDate.toLocaleTimeString('pt-br')
+
+    let text = `Extrato - Data: ${`${date} - ${time}\n`}`
+    text += transactions.reduce(
+      (txt, transaction) =>
+        (txt += `\n${transaction.date} - ${
+          transaction.description
+        }       ${Utils.formatCurrency(transaction.amount)}`),
+      ''
+    )
+    text += `\n\nEntradas:        ${Utils.formatCurrency(incomes)}`
+    text += `\nSaídas:          ${Utils.formatCurrency(expenses)}`
+    text += `\nTotal:           ${Utils.formatCurrency(total)}`
+
+    Utils.downloadFile(text, 'extrato.txt', 'application/text')
+  },
 }
 
 const Transaction = {
   all: Wallet.selected || [],
 
-  add(transaction){
+  add(transaction) {
     Transaction.all.transactions.push(transaction)
     App.reload()
   },
 
-  remove(index){
+  remove(index) {
     Transaction.all.transactions.splice(index, 1)
     App.reload()
   },
 
-  incomes(transactions = Transaction.all.transactions){
-    return transactions?.reduce((total, {amount}) => 
-      amount > 0 ? amount + total: total
-    , 0)
+  incomes(transactions = Transaction.all.transactions) {
+    return transactions?.reduce(
+      (total, { amount }) => (amount > 0 ? amount + total : total),
+      0
+    )
   },
 
-  expenses(transactions = Transaction.all.transactions){
-    return transactions?.reduce((total, {amount}) => 
-      amount < 0 ? amount + total: total
-    , 0)
+  expenses(transactions = Transaction.all.transactions) {
+    return transactions?.reduce(
+      (total, { amount }) => (amount < 0 ? amount + total : total),
+      0
+    )
   },
 
-  total(transactions = Transaction.all.transactions){
-    return transactions?.reduce((total, {amount}) => amount + total, 0)
-  }
+  total(transactions = Transaction.all.transactions) {
+    return transactions?.reduce(
+      (total, { amount }) => amount + total,
+      0
+    )
+  },
 }
 
 const DOM = {
   transactionsContainer: document.querySelector('#data-table tbody'),
   walletsContainer: document.querySelector('#wallets-table tbody'),
 
-  addWallet(wallet, index){
+  addWallet(wallet, index) {
     const tr = document.createElement('tr')
 
     tr.innerHTML = DOM.innerHTMLWallet(wallet, index)
@@ -86,11 +136,14 @@ const DOM = {
     DOM.walletsContainer.appendChild(tr)
   },
 
-  innerHTMLWallet( wallet, index ) {
+  innerHTMLWallet(wallet, index) {
     const { name, transactions } = wallet
 
-    const amount = transactions?.reduce((current, next) => current + next.amount, 0)
-  
+    const amount = transactions?.reduce(
+      (current, next) => current + next.amount,
+      0
+    )
+
     const CSSClass = amount > 0 ? 'income' : 'expense'
 
     const newAmount = Utils.formatCurrency(amount)
@@ -105,7 +158,7 @@ const DOM = {
     return html
   },
 
-  addTransaction(transaction, index){
+  addTransaction(transaction, index) {
     const tr = document.createElement('tr')
     tr.innerHTML = DOM.innerHTMLTransaction(transaction, index)
     tr.dataset.index = index
@@ -132,40 +185,40 @@ const DOM = {
   },
 
   updateBalance() {
-    document
-      .getElementById('incomeDisplay')
-      .innerHTML = Utils.formatCurrency(Transaction.incomes())
+    document.getElementById(
+      'incomeDisplay'
+    ).innerHTML = Utils.formatCurrency(Transaction.incomes())
 
-    document
-      .getElementById('expenseDisplay')
-      .innerHTML = Utils.formatCurrency(Transaction.expenses())
+    document.getElementById(
+      'expenseDisplay'
+    ).innerHTML = Utils.formatCurrency(Transaction.expenses())
 
-    document
-      .getElementById('totalDisplay')
-      .innerHTML = Utils.formatCurrency(Transaction.total())
+    document.getElementById(
+      'totalDisplay'
+    ).innerHTML = Utils.formatCurrency(Transaction.total())
   },
 
-  clearTransactions(){
+  clearTransactions() {
     DOM.transactionsContainer.innerHTML = ''
   },
 
-  clearWallets(){
+  clearWallets() {
     DOM.walletsContainer.innerHTML = ''
-  }
+  },
 }
 
 const Utils = {
-  formatAmount(value){
-    value = Number(value)*100
+  formatAmount(value) {
+    value = Number(value) * 100
     return Math.round(value)
   },
 
-  formatDate(date){
-    const [ year, month, day ] = date.split('-')
+  formatDate(date) {
+    const [year, month, day] = date.split('-')
     return `${day}/${month}/${year}`
   },
 
-  formatCurrency(value){
+  formatCurrency(value) {
     const signal = Number(value) < 0 ? '-' : ''
 
     value = String(value).replace(/\D/g, '')
@@ -174,39 +227,55 @@ const Utils = {
 
     value = value.toLocaleString('pt-BR', {
       style: 'currency',
-      currency: 'BRL'
+      currency: 'BRL',
     })
 
     return signal + value
-  }
+  },
+
+  downloadFile(data, name, type) {
+    const blob = new Blob([data], {
+      type: type,
+    })
+    const link = window.document.createElement('a')
+    link.href = window.URL.createObjectURL(blob)
+    link.download = `${name.trim().replace(/ +/g, '-')}`
+    link.click()
+    window.URL.revokeObjectURL(link.href)
+    return
+  },
 }
 
 const WalletForm = {
-  name:document.querySelector('input#wallet-name'),
+  name: document.querySelector('input#wallet-name'),
 
-  getValues(){
+  getValues() {
     return { name: WalletForm.name.value }
   },
 
-  validadeFields(){
+  validadeFields() {
     const { name } = WalletForm.getValues()
-    if( name === ''){
+    if (name === '') {
       throw new Error('Por favor, preencha todos os campos.')
-    } 
+    }
   },
 
-  formatValues(){
+  formatValues() {
     let { name } = WalletForm.getValues()
-    return { name: name.replace(/ +/g, ' ').trim() }
+    return {
+      name: name.replace(/ +/g, ' ').trim(),
+    }
   },
 
-  saveWallet(wallet){
+  saveWallet(wallet) {
     Wallet.add(wallet)
   },
 
-  clearFields(){ WalletForm.name.value = '' },
+  clearFields() {
+    WalletForm.name.value = ''
+  },
 
-  submit(event){
+  submit(event) {
     event.preventDefault()
     try {
       WalletForm.validadeFields()
@@ -221,56 +290,56 @@ const WalletForm = {
     } catch (error) {
       alert(error.message)
     }
-
-  }
+  },
 }
 
 const Form = {
-  description:document.querySelector('input#description'),
-  amount:document.querySelector('input#amount'),
-  date:document.querySelector('input#date'),
+  description: document.querySelector('input#description'),
+  amount: document.querySelector('input#amount'),
+  date: document.querySelector('input#date'),
 
-  getValues(){
+  getValues() {
     return {
       description: Form.description.value.replace(/ +/g, ' ').trim(),
       amount: Form.amount.value,
-      date: Form.date.value
+      date: Form.date.value,
     }
   },
 
-  validadeFields(){
+  validadeFields() {
     const { description, amount, date } = Form.getValues()
-    if( description.trim() === '' 
-      || amount.trim() === '' 
-      || date.trim() === ''
-    ){
+    if (
+      description.trim() === '' ||
+      amount.trim() === '' ||
+      date.trim() === ''
+    ) {
       throw new Error('Por favor, preencha todos os campos.')
-    } 
+    }
   },
 
-  formatValues(){
+  formatValues() {
     let { description, amount, date } = Form.getValues()
     amount = Utils.formatAmount(amount)
     date = Utils.formatDate(date)
 
     return {
-      description, 
-      amount, 
-      date 
+      description,
+      amount,
+      date,
     }
   },
 
-  saveTransaction(transaction){
+  saveTransaction(transaction) {
     Transaction.add(transaction)
   },
 
-  clearFields(){
-    Form.description.value = '',
-    Form.amount.value = '',
-    Form.date.value = ''
+  clearFields() {
+    ;(Form.description.value = ''),
+      (Form.amount.value = ''),
+      (Form.date.value = '')
   },
 
-  submit(event){
+  submit(event) {
     event.preventDefault()
 
     try {
@@ -285,8 +354,7 @@ const Form = {
     } catch (error) {
       alert(error.message)
     }
-
-  }
+  },
 }
 
 const App = {
@@ -295,41 +363,40 @@ const App = {
     Wallet.all.forEach(DOM.addWallet)
 
     DOM.updateBalance()
+    Wallet.update()
 
     Storage.set(Wallet.all)
 
-    document
-      .querySelector('#wallet-selected-name')
-      .innerHTML = Transaction.all?.name || 'Crie um Carteira'
+    document.querySelector('#wallet-selected-name').innerHTML =
+      Transaction.all?.name || 'Crie um Carteira'
   },
 
-  reload(){
+  reload() {
     DOM.clearTransactions()
     DOM.clearWallets()
     this.init()
-  }
+  },
 }
 
 App.init()
 
-const invertTheme = (mediaText) => mediaText.indexOf('dark') > -1
-  ? ['dark', 'light']
-  : ['light', 'dark']
+const invertTheme = (mediaText) =>
+  mediaText.indexOf('dark') > -1
+    ? ['dark', 'light']
+    : ['light', 'dark']
 
-function switchTheme() {  
+function switchTheme() {
   const cssRules = window.document.styleSheets[0].cssRules
- 
+
   for (const rule of cssRules) {
     let media = rule.media
-    
+
     if (media) {
       const [currentTheme, nextTheme] = invertTheme(media.mediaText)
 
-      media.mediaText = media
-      .mediaText
-      .replace(
-        "(prefers-color-scheme: " + currentTheme + ")", 
-        "(prefers-color-scheme: " + nextTheme + ")",
+      media.mediaText = media.mediaText.replace(
+        '(prefers-color-scheme: ' + currentTheme + ')',
+        '(prefers-color-scheme: ' + nextTheme + ')'
       )
     }
   }

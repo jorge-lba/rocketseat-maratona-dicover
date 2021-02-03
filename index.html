@@ -11,33 +11,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,700;1,100&display=swap"
     rel="stylesheet">
 
-  <link rel="shortcut icon" href="./assets/sing.svg" >
+  <link rel="shortcut icon" href="./assets/sing.svg">
 
   <meta property="og:type" content="article">
   <meta property="og:Title" content="Dev.Finance$ - Maratona Discover">
+<<<<<<< HEAD
   <meta property="og:description" content="Aplicação para controle financeiro com armazenamento no browser( local Storage )">
   <meta property="og:image" content="https://raw.githubusercontent.com/jorge-lba/rocketseat-maratona-dicover/main/assets/logo.png">
+=======
+  <meta property="og:description"
+    content="Aplicação para controle financeiro com armazenamento no browser( local Storage )">
+
+  <meta property="og:image"
+    content="https://raw.githubusercontent.com/jorge-lba/rocketseat-maratona-dicover/eb820db3a8415025e670c38c2ea06ee4cba70764/assets/logo.png">
+  <meta property="og:image:type" content="image/svg">
+  <meta property="og:image:width" content="344">
+  <meta property="og:image:height" content="48">
+>>>>>>> refactoring
 
 
 </head>
 
-<body >
+<body>
   <header>
     <div class="header">
       <a class="color-mode button" onclick="switchTheme()">Alternar Tema</a>
       <img class="logo" src="./assets/logo.svg" alt="Logo Dev Finances">
       <div id="wallet-selected">
-        <span >Carteira :</span>
-        <a 
-          href="#" 
-          class="button wallet"
-          id="wallet-selected-name"
-          onclick="Modal.toggle('modal-wallets')"
-        >Nome</a>
+        <span>Carteira :</span>
+        <a href="#" class="button wallet" id="wallet-selected-name" onclick="Modal.toggle('modal-wallets')">Nome</a>
       </div>
     </div>
   </header>
-  
+
   <main class="container">
     <section id="balance">
       <h2 class="sr-only">Balanço</h2>
@@ -61,19 +67,26 @@
         <h3>
           <span>Total</span>
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path class="svg total" d="M16 1.33333V30.6667" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path class="svg total" d="M22.6667 6.66667H12.6667C11.429 6.66667 10.242 7.15834 9.36684 8.03351C8.49167 8.90868 8 10.0957 8 11.3333C8 12.571 8.49167 13.758 9.36684 14.6332C10.242 15.5083 11.429 16 12.6667 16H19.3333C20.571 16 21.758 16.4917 22.6332 17.3668C23.5083 18.242 24 19.429 24 20.6667C24 21.9043 23.5083 23.0913 22.6332 23.9665C21.758 24.8417 20.571 25.3333 19.3333 25.3333H8" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="svg total" d="M16 1.33333V30.6667" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path class="svg total"
+              d="M22.6667 6.66667H12.6667C11.429 6.66667 10.242 7.15834 9.36684 8.03351C8.49167 8.90868 8 10.0957 8 11.3333C8 12.571 8.49167 13.758 9.36684 14.6332C10.242 15.5083 11.429 16 12.6667 16H19.3333C20.571 16 21.758 16.4917 22.6332 17.3668C23.5083 18.242 24 19.429 24 20.6667C24 21.9043 23.5083 23.0913 22.6332 23.9665C21.758 24.8417 20.571 25.3333 19.3333 25.3333H8"
+              stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </h3>
         <p id="totalDisplay">R$ 0,00</p>
       </div>
     </section>
 
-    <a 
-      href="#" 
-      class="button new"
-      onclick="Modal.toggle('transaction')"
-    >+ Nova Transação</a>
+    <div id="options-transactions">
+      <a href="#" class="button new" onclick="Modal.toggle('transaction')">+ Nova Transação</a>
+
+      <a href="#" class="button extract" onclick="Wallet.extract()">
+        <img src="./assets/get_app-24px.svg" alt="Gerar Extrato">
+        <span>Gerar extrato</span>
+      </a>
+    </div>
+
 
     <section id="transaction">
       <h2 class="sr-only">Transações</h2>
@@ -100,51 +113,21 @@
         <h2>Nova Transação</h2>
         <form action="" onsubmit="Form.submit(event)">
           <div class="input-group">
-            <label 
-              class="sr-only" 
-              for="description"
-            >Descrição</label>
-            <input 
-              type="text" 
-              id="description" 
-              name="description" 
-  
-              placeholder="Descrição"
-            >
+            <label class="sr-only" for="description">Descrição</label>
+            <input autocomplete="off" type="text" id="description" name="description" placeholder="Descrição">
           </div>
           <div class="input-group">
-            <label 
-              class="sr-only" 
-              for="amount"
-            >Valor</label>
-            <input 
-              type="number" 
-              step="0.01"
-              id="amount" 
-              name="amount"
-   
-              placeholder="0,00"
-            >
+            <label class="sr-only" for="amount">Valor</label>
+            <input autocomplete="off" type="number" step="0.01" id="amount" name="amount" placeholder="0,00">
             <small class="help"> Use o sinal - (negativo) para despesas e , (vírgula) para casas decimais.</small>
           </div>
           <div class="input-group">
-            <label 
-              class="sr-only" 
-              for="date"
-            >Data</label>
-            <input 
-              type="date" 
-              id="date" 
-              name="date"
-            >
+            <label class="sr-only" for="date">Data</label>
+            <input autocomplete="off" type="date" id="date" name="date">
           </div>
 
           <div class="input-group actions">
-            <a 
-              href="#" 
-              class="button cancel"
-              onclick="Modal.toggle('transaction')"
-              >Cancelar</a>
+            <a href="#" class="button cancel" onclick="Modal.toggle('transaction')">Cancelar</a>
             <button>Salvar</button>
           </div>
         </form>
@@ -157,12 +140,7 @@
       <div class="form-wallets">
         <h2>Carteiras</h2>
         <form id="form-wallets" action="" onsubmit="WalletForm.submit(event)">
-          <input 
-            type="text" 
-            name="wallet-name" 
-            id="wallet-name"
-            placeholder="Nome da Carteira"
-          >
+          <input autocomplete="off" type="text" name="wallet-name" id="wallet-name" placeholder="Nome da Carteira">
           <!-- autocomplete="off" -->
           <button>Adicionar</button>
         </form>
