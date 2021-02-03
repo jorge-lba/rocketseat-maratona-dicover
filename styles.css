@@ -1,7 +1,6 @@
 /* Global ================================================== */
 :root {
   --font-color-base: #363f5f;
-  --font-color-base-hover: #53608d;
   --green: #49aa26;
   --light-green: #3dd705;
   --expense-color: #e92929;
@@ -15,8 +14,7 @@
 
   --svg-filter: invert(30%) sepia(79%) saturate(2476%) hue-rotate(100deg)
     brightness(118%) contrast(119%);
-  --svg-filter-hover: invert(30%) sepia(79%) saturate(2476%) hue-rotate(100deg)
-    brightness(150%) contrast(119%);
+
   --image-github: url(./assets/GitHub-Mark-64px.svg);
 }
 

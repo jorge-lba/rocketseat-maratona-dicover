@@ -33,6 +33,20 @@ As funcionalidades implementadas foram:
     </tr>
     <tr>
       <td>
+        <img width="400px" src="./docs/assets/extract.gif">
+      </td>
+      <td>
+      <h4>Extrato</h4>
+      <p>Implementação da funcionalidade para gerar um extrato.<p>
+      <span>Com essa funcionalidade você pode manter</span></br>
+      <span>o registro de suas transações em um arquivo externo </span></br>
+      <p>
+        <a href="./docs/extract.md">Ver Tutorial</a>
+      </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <img width="400px" src="./docs/assets/wallet_test.gif">
       </td>
       <td>
