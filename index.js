@@ -21,9 +21,14 @@ const Storage = {
 const Wallet = {
   all: Storage.get(),
   selected: Storage.get()[0] || Modal.toggle("modal-wallets"),
+  index: 0,
+
+  update() {
+    Wallet.all[Wallet.index] = Wallet.selected;
+  },
 
   add(wallet) {
-    wallet.transactions = [];
+    if (!wallet.transactions) wallet.transactions = [];
     Wallet.all.push(wallet);
   },
 
@@ -37,23 +42,51 @@ const Wallet = {
 
     Wallet.selected = Wallet.all[index];
     Transaction.all = Wallet.selected;
+    Wallet.index = index;
 
     App.reload();
   },
 
   export() {
-    const wallet = [JSON.stringify(Wallet.selected)];
-    const blob = new Blob(wallet, {
-      type: "application/json",
-    });
-    const link = window.document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    link.download = `wallet-${Wallet.selected?.name
-      .trim()
-      .replace(" ", "-")}.json`;
-    link.click();
-    window.URL.revokeObjectURL(link.href);
+    const wallet = JSON.stringify(Wallet.selected);
+    Utils.downloadFile(
+      wallet,
+      `wallet-${Wallet.selected?.name}.json`,
+      "application/json"
+    );
     return;
+  },
+
+  extract() {
+    const transactions = Transaction.all.transactions;
+    const incomes = Transaction.incomes();
+    const expenses = Transaction.expenses();
+    const total = Transaction.total();
+
+    const currentDate = new Date();
+
+    const date = {
+      day: currentDate.getDay(),
+      month: currentDate.getMonth() + 1,
+      year: currentDate.getFullYear(),
+      hours: currentDate.getHours(),
+      minutes: currentDate.getMinutes(),
+      seconds: currentDate.getSeconds(),
+    };
+
+    let text = `Extrato - Data: ${`${date.day}/${date.month}/${date.year} - ${date.hours}:${date.minutes}:${date.seconds}\n`}`;
+    text += transactions.reduce(
+      (txt, transaction) =>
+        (txt += `\n${transaction.date} - ${
+          transaction.description
+        }       ${Utils.formatCurrency(transaction.amount)}`),
+      ""
+    );
+    text += `\n\nEntradas:        ${Utils.formatCurrency(incomes)}`;
+    text += `\nSaídas:          ${Utils.formatCurrency(expenses)}`;
+    text += `\nTotal:           ${Utils.formatCurrency(total)}`;
+
+    Utils.downloadFile(text, "extrato.txt", "application/text");
   },
 };
 
@@ -198,6 +231,18 @@ const Utils = {
 
     return signal + value;
   },
+
+  downloadFile(data, name, type) {
+    const blob = new Blob([data], {
+      type: type,
+    });
+    const link = window.document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = `${name.trim().replace(/ +/g, "-")}`;
+    link.click();
+    window.URL.revokeObjectURL(link.href);
+    return;
+  },
 };
 
 const WalletForm = {
@@ -315,6 +360,7 @@ const App = {
     Wallet.all.forEach(DOM.addWallet);
 
     DOM.updateBalance();
+    Wallet.update();
 
     Storage.set(Wallet.all);
 
