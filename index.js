@@ -43,10 +43,6 @@ const Wallet = {
     App.reload()
   },
 
-  refresh() {
-    Wallet.all = Storage.get()
-  },
-
   select(index) {
     Modal.toggle('modal-wallets')
 
@@ -288,8 +284,6 @@ const WalletForm = {
       WalletForm.saveWallet(wallet)
 
       WalletForm.clearFields()
-
-      Wallet.refresh()
 
       DOM.clearWallets()
 
