@@ -299,6 +299,7 @@ const Wallet = {
 
   update() {
     Wallet.all[Wallet.index] = Wallet.selected
+    Storage.set(Wallet.all)
   },
 
   add(wallet) {
@@ -500,6 +501,7 @@ const App = {
   reload() {
     DOM.clearTransactions()
     DOM.clearWallets()
+    Wallet.update()
     this.init()
   },
 }
