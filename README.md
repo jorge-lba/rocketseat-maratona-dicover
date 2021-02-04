@@ -19,7 +19,7 @@ As funcionalidades implementadas foram:
   <tbody>
     <tr>
       <td>
-        <img width="400px" src="./docs/assets/dark_mode.gif">
+        <img width="280px" src="./docs/assets/dark_mode.gif">
       </td>
       <td>
       <h4>Dark Mode</h4>
@@ -33,7 +33,7 @@ As funcionalidades implementadas foram:
     </tr>
     <tr>
       <td>
-        <img width="400px" src="./docs/assets/extract.gif">
+        <img width="280px" src="./docs/assets/extract.gif">
       </td>
       <td>
       <h4>Extrato</h4>
@@ -47,7 +47,7 @@ As funcionalidades implementadas foram:
     </tr>
     <tr>
       <td>
-        <img width="400px" src="./docs/assets/wallet_test.gif">
+        <img width="280px" src="./docs/assets/wallet_test.gif">
       </td>
       <td>
       <h4>Múltiplas Carteira</h4>
