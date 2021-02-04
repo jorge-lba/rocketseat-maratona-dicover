@@ -35,11 +35,16 @@ const Wallet = {
   add(wallet) {
     if (!wallet.transactions) wallet.transactions = []
     Wallet.all.push(wallet)
+    Storage.set(Wallet.all)
   },
 
   remove(index) {
     Wallet.all.splice(index, 1)
     App.reload()
+  },
+
+  refresh() {
+    Wallet.all = Storage.get()
   },
 
   select(index) {
@@ -280,12 +285,14 @@ const WalletForm = {
     try {
       WalletForm.validadeFields()
       const wallet = WalletForm.formatValues()
-
       WalletForm.saveWallet(wallet)
 
       WalletForm.clearFields()
 
+      Wallet.refresh()
+
       DOM.clearWallets()
+
       Wallet.all.forEach(DOM.addWallet)
     } catch (error) {
       alert(error.message)
@@ -363,9 +370,7 @@ const App = {
     Wallet.all.forEach(DOM.addWallet)
 
     DOM.updateBalance()
-    Wallet.update()
-
-    Storage.set(Wallet.all)
+    // Wallet.update()
 
     document.querySelector('#wallet-selected-name').innerHTML =
       Transaction.all?.name || 'Crie um Carteira'
