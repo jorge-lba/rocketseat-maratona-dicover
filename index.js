@@ -215,10 +215,7 @@ const Utils = {
   },
 
   formatDate(date) {
-    const [year, month, day] = date.split('-')
-    return new Date(year, month - 1, day).toLocaleDateString(
-      DOM.language
-    )
+    return new Date(date).toLocaleDateString(DOM.language)
   },
 
   formatCurrency(value) {
@@ -370,9 +367,9 @@ const Form = {
         .map((value) => parseInt(value))
 
       for (let i = 0; i < transaction.plots; i++) {
-        const date = new Date(
+        const date = Utils.formatDate(
           Utils.setMonthToDate(new Date(year, month - 1, day), i)
-        ).toLocaleDateString(DOM.language)
+        )
         Transaction.add({ ...transaction, date })
       }
     } catch (error) {
@@ -386,6 +383,11 @@ const Form = {
       (Form.date.value = ''),
       (Form.plots.value = ''),
       (Form.checkbox.checked = false)
+  },
+
+  setCurrentDate() {
+    const currentDate = Utils.currentDate().toISOString().slice(0, 10)
+    Form.date.value = currentDate
   },
 
   plotsInputState() {
@@ -408,6 +410,7 @@ const Form = {
       Form.saveTransaction(transaction)
 
       Form.clearFields()
+      Form.setCurrentDate()
 
       Modal.toggle('transaction')
     } catch (error) {
@@ -422,7 +425,8 @@ const App = {
     Wallet.all.forEach(DOM.addWallet)
 
     DOM.updateBalance()
-    // Wallet.update()
+
+    Form.setCurrentDate()
 
     document.querySelector('#wallet-selected-name').innerHTML =
       Transaction.all?.name || 'Crie um Carteira'
