@@ -1,6 +1,7 @@
 /* Global ================================================== */
 :root {
   --font-color-base: #363f5f;
+  --input-disabled: rgb(209, 209, 209);
   --green: #49aa26;
   --light-green: #3dd705;
   --expense-color: #e92929;
@@ -12,8 +13,8 @@
 
   --calendar-picker-mode: 0;
 
-  --svg-filter: invert(30%) sepia(79%) saturate(2476%) hue-rotate(100deg)
-    brightness(118%) contrast(119%);
+  --svg-filter: invert(30%) sepia(79%) saturate(2476%)
+    hue-rotate(100deg) brightness(118%) contrast(119%);
 
   --image-github: url(./assets/GitHub-Mark-64px.svg);
 }
@@ -21,6 +22,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --font-color-base: #f0f2f5;
+    --input-disabled: #292430;
     --green: #49aa26;
     --light-green: #555;
     --expense-color: #e92929;
@@ -49,7 +51,7 @@ html {
 
 body {
   background: var(--background-color);
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   transition: 0.3s;
 }
 
@@ -403,6 +405,10 @@ input {
   width: 100%;
 }
 
+input:disabled {
+  background: var(--input-disabled);
+}
+
 .input-group {
   margin-top: 0.8rem;
 }
@@ -421,6 +427,19 @@ input {
 .input-group.actions .button,
 .input-group.actions button {
   width: 48%;
+}
+
+.input-group.plots #checkbox-plots {
+  height: 2.2rem;
+  width: 3rem;
+  margin-right: 0.6rem;
+  background: #252327;
+}
+
+.input-group.plots {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Modal Wallets ================================================= */

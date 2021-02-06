@@ -126,6 +126,7 @@ const Transaction = {
 const DOM = {
   transactionsContainer: document.querySelector('#data-table tbody'),
   walletsContainer: document.querySelector('#wallets-table tbody'),
+  language: navigator.language,
 
   addWallet(wallet, index) {
     const tr = document.createElement('tr')
@@ -215,7 +216,9 @@ const Utils = {
 
   formatDate(date) {
     const [year, month, day] = date.split('-')
-    return `${day}/${month}/${year}`
+    return new Date(year, month - 1, day).toLocaleDateString(
+      DOM.language
+    )
   },
 
   formatCurrency(value) {
@@ -243,6 +246,29 @@ const Utils = {
     link.click()
     window.URL.revokeObjectURL(link.href)
     return
+  },
+
+  currentDate() {
+    return new Date()
+  },
+
+  setMonthToDate(date, value) {
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    const day = date.getDate()
+
+    const currentMonth = new Date(year, month, 1)
+
+    const nextMonth = new Date(currentMonth.setMonth(month + value))
+    const daysInNextMonth = new Date(
+      nextMonth.getFullYear(),
+      nextMonth.getMonth() + 1,
+      0
+    ).getDate()
+
+    return daysInNextMonth < day
+      ? new Date(year, nextMonth.getMonth(), daysInNextMonth)
+      : new Date(year, nextMonth.getMonth(), day)
   },
 }
 
@@ -297,12 +323,14 @@ const Form = {
   description: document.querySelector('input#description'),
   amount: document.querySelector('input#amount'),
   date: document.querySelector('input#date'),
+  plots: document.querySelector('input#plots'),
 
   getValues() {
     return {
       description: Form.description.value.replace(/ +/g, ' ').trim(),
       amount: Form.amount.value,
       date: Form.date.value,
+      plots: Form.plots.value || 1,
     }
   },
 
@@ -318,7 +346,7 @@ const Form = {
   },
 
   formatValues() {
-    let { description, amount, date } = Form.getValues()
+    let { description, amount, date, plots } = Form.getValues()
     amount = Utils.formatAmount(amount)
     date = Utils.formatDate(date)
 
@@ -326,17 +354,39 @@ const Form = {
       description,
       amount,
       date,
+      plots,
     }
   },
 
   saveTransaction(transaction) {
-    Transaction.add(transaction)
+    try {
+      const [day, month, year] = transaction.date
+        .split('/')
+        .map((value) => parseInt(value))
+
+      for (let i = 0; i < transaction.plots; i++) {
+        const date = new Date(
+          Utils.setMonthToDate(new Date(year, month - 1, day), i)
+        ).toLocaleDateString(DOM.language)
+        Transaction.add({ ...transaction, date })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   },
 
   clearFields() {
     ;(Form.description.value = ''),
       (Form.amount.value = ''),
       (Form.date.value = '')
+  },
+
+  plotsInputState() {
+    const checkbox = document.getElementById('checkbox-plots')
+    const inputPlots = document.getElementById('plots')
+    checkbox.checked
+      ? inputPlots.removeAttribute('disabled')
+      : inputPlots.setAttribute('disabled', 'disabled')
   },
 
   submit(event) {

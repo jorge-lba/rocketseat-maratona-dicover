@@ -107,6 +107,13 @@
             <label class="sr-only" for="description">Descrição</label>
             <input autocomplete="off" type="text" id="description" name="description" placeholder="Descrição">
           </div>
+          <div class="input-group plots">
+            <label class="sr-only" for="description">Parcelas</label>
+            <input onclick="Form.plotsInputState()" type="checkbox" id="checkbox-plots" name="checkbox-plots"
+              value="active-plots">
+            <input autocomplete="off" disabled type="number" id="plots" min=1 name="plots"
+              placeholder="Ativar Parcelas">
+          </div>
           <div class="input-group">
             <label class="sr-only" for="amount">Valor</label>
             <input autocomplete="off" type="number" step="0.01" id="amount" name="amount" placeholder="0,00">
