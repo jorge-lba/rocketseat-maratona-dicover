@@ -10,34 +10,6 @@ Me esforcei para manter essas funcionalidades dentro do conhecimentos passados d
 As funcionalidades implementadas foram:
 
 <div xmlns="http://www.w3.org/1999/xhtml">
-  <style>
-    table tr th:first-child,
-    table tr td:first-child {
-      border-radius: 0.50rem 0 0 0.50rem;
-    }
-    table tr th:last-child,
-    table tr td:last-child {
-      border-radius: 0 0.50rem 0.50rem 0;
-    }
-    table thead span{
-      color:#FFF;
-    }
-    table thead th {
-      background: #2d4a22;
-      font-weight: normal;
-      text-align: left;
-    }
-    table tbody td {
-      background: #c3ccda;
-      padding: 1rem 2rem;
-    }
-    table tbody tr {
-      opacity: 0.55;
-    }
-    table tbody tr:hover {
-      opacity: 1;
-    }
-  </style>
   <table id="wallets-table">
     <thead>
       <tr>
@@ -48,7 +20,7 @@ As funcionalidades implementadas foram:
     <tbody>
       <tr>
         <td>
-          <img width="420px" src="./docs/assets/dark_mode.gif">
+          <img width="380px" src="./docs/assets/dark_mode.gif">
         </td>
         <td>
         <h4>Dark Mode</h4>
@@ -62,7 +34,7 @@ As funcionalidades implementadas foram:
       </tr>
       <tr>
         <td>
-          <img width="420px" src="./docs/assets/extract.gif">
+          <img width="380px" src="./docs/assets/extract.gif">
         </td>
         <td>
         <h4>Extrato</h4>
@@ -76,7 +48,7 @@ As funcionalidades implementadas foram:
       </tr>
       <tr>
         <td>
-          <img width="420px" src="./docs/assets/plots.gif">
+          <img width="380px" src="./docs/assets/plots.gif">
         </td>
         <td>
         <h4>Parcelas</h4>
@@ -90,7 +62,7 @@ As funcionalidades implementadas foram:
       </tr>
       <tr>
         <td>
-          <img width="420px" src="./docs/assets/wallet_test.gif">
+          <img width="380px" src="./docs/assets/wallet_test.gif">
         </td>
         <td>
         <h4>Múltiplas Carteira</h4>
