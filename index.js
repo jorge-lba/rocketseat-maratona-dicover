@@ -328,6 +328,7 @@ const Form = {
   amount: document.querySelector('input#amount'),
   date: document.querySelector('input#date'),
   plots: document.querySelector('input#plots'),
+  checkbox: document.getElementById('checkbox-plots'),
 
   getValues() {
     return {
@@ -382,15 +383,19 @@ const Form = {
   clearFields() {
     ;(Form.description.value = ''),
       (Form.amount.value = ''),
-      (Form.date.value = '')
+      (Form.date.value = ''),
+      (Form.plots.value = ''),
+      (Form.checkbox.checked = false)
   },
 
   plotsInputState() {
-    const checkbox = document.getElementById('checkbox-plots')
-    const inputPlots = document.getElementById('plots')
-    checkbox.checked
-      ? inputPlots.removeAttribute('disabled')
-      : inputPlots.setAttribute('disabled', 'disabled')
+    if (Form.checkbox.checked) {
+      Form.plots.removeAttribute('disabled')
+      Form.plots.placeholder = 'Adicione o numero de parcelas'
+    } else {
+      Form.plots.setAttribute('disabled', 'disabled')
+      Form.plots.placeholder = 'Ativar parcelas'
+    }
   },
 
   submit(event) {
