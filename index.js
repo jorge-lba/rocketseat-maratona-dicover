@@ -267,8 +267,12 @@ const Utils = {
     ).getDate()
 
     return daysInNextMonth < day
-      ? new Date(year, nextMonth.getMonth(), daysInNextMonth)
-      : new Date(year, nextMonth.getMonth(), day)
+      ? new Date(
+          nextMonth.getFullYear(),
+          nextMonth.getMonth(),
+          daysInNextMonth
+        )
+      : new Date(nextMonth.getFullYear(), nextMonth.getMonth(), day)
   },
 }
 
