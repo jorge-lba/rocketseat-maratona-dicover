@@ -350,7 +350,6 @@ const Form = {
   formatValues() {
     let { description, amount, date, plots } = Form.getValues()
     amount = Utils.formatAmount(amount)
-    date = Utils.formatDate(date)
 
     return {
       description,
@@ -362,15 +361,13 @@ const Form = {
 
   saveTransaction(transaction) {
     try {
-      const [day, month, year] = transaction.date
-        .split('/')
-        .map((value) => parseInt(value))
+      const date = new Date(transaction.date + 'T00:00:00')
 
       for (let i = 0; i < transaction.plots; i++) {
-        const date = Utils.formatDate(
-          Utils.setMonthToDate(new Date(year, month - 1, day), i)
+        const newDate = Utils.formatDate(
+          Utils.setMonthToDate(date, i)
         )
-        Transaction.add({ ...transaction, date })
+        Transaction.add({ ...transaction, date: newDate })
       }
     } catch (error) {
       console.log(error)
