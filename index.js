@@ -361,7 +361,7 @@ const Form = {
 
   saveTransaction(transaction) {
     try {
-      const date = new Date(transaction.date + 'T00:00:00')
+      const date = new Date(transaction.date + 'T11:00:01')
 
       for (let i = 0; i < transaction.plots; i++) {
         const newDate = Utils.formatDate(
