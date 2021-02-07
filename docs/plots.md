@@ -1,4 +1,4 @@
-# Múltiplas Parcelas
+# <a href="https://github.com/jorge-lba/rocketseat-maratona-dicover">&#11013;</a> Múltiplas Parcelas
 
 Neste tutorial vamos adicionar uma funcionalidade para criar transações com intervalos de um mês.
 

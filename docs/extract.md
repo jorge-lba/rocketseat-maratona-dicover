@@ -1,4 +1,4 @@
-# Gerar Extrato
+# <a href="https://github.com/jorge-lba/rocketseat-maratona-dicover">&#11013;</a> Gerar Extrato
 
 Nesse tutorial vamos adicionar uma funcionalidade para gerar um extrato e fazer o download do arquivo em `txt`.
 
@@ -8,7 +8,11 @@ Vamos dar inicio criando um botão para fazer o download do nosso extrato. Iremo
 
 ```html
 <div id="options-transactions">
-  <a href="#" class="button new" onclick="Modal.toggle('transaction')">
+  <a
+    href="#"
+    class="button new"
+    onclick="Modal.toggle('transaction')"
+  >
     + Nova Transação
   </a>
 
@@ -28,7 +32,9 @@ Vamos dar inicio ao nosso CSS, primeiramente vamos adicionar as variáveis que v
 ```css
 :root {
   --font-color-base: #363f5f;
-  --svg-filter: invert(30%) sepia(79%) saturate(2476%) hue-rotate(100deg)
+  --svg-filter: invert(30%) sepia(79%) saturate(2476%) hue-rotate(
+      100deg
+    )
     brightness(118%) contrast(119%);
 }
 ```

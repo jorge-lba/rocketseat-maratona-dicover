@@ -1,23 +1,25 @@
-# Modo Escuro
+# <a href="https://github.com/jorge-lba/rocketseat-maratona-dicover">&#11013;</a> Modo Escuro
 
 Como o objetivo da maratona é criar um projeto voltado para o publico mais iniciante, busquei a forma mais simples que consegui para adicionar o modo escuro.
 
 ---
+
 ## Variáveis CSS
+
 De inicio vamos ter que separar todas as cores do nosso **CSS** em variáveis assim como o Mayk fez com algumas cores na aula 2.
 
 Segue um exemplo de como separei minhas variáveis:
 
 ```css
 :root {
-  --font-color-base: #363F5F;
-  --green: #49AA26;
-  --light-green: #3DD705;
-  --expense-color: #E92929;
-  --light-color-base: #FFF;
-  --table-color-base: #FFF;
-  --background-color-header: #2D4A22;
-  --background-color: #F0F2F5;
+  --font-color-base: #363f5f;
+  --green: #49aa26;
+  --light-green: #3dd705;
+  --expense-color: #e92929;
+  --light-color-base: #fff;
+  --table-color-base: #fff;
+  --background-color-header: #2d4a22;
+  --background-color: #f0f2f5;
 }
 ```
 
@@ -26,14 +28,14 @@ Agora vamos criar uma [At-Rule](https://developer.mozilla.org/pt-BR/docs/Web/CSS
 ```css
 @media (prefers-color-scheme: dark) {
   :root {
-    --font-color-base: #F0F2F5;
+    --font-color-base: #f0f2f5;
     --green: #49aa26;
     --light-green: #555;
-    --expense-color: #E92929;
+    --expense-color: #e92929;
     --light-color-base: #1f1b24;
     --table-color-base: #121212;
     --background-color-header: #121212;
-    --background-color:#1f1b24;
+    --background-color: #1f1b24;
   }
 }
 ```
@@ -43,6 +45,7 @@ Essa **At-Rule** vai verificar o tema que o usuário está usando, caso seja `da
 Para mais informações de como é identificado o tema do usuário veja o link a seguir: [prefers-color-scheme](https://developer.mozilla.org/pt-BR/docs/Web/CSS/@media/prefers-color-scheme)
 
 ---
+
 ## Variável do Tema
 
 Agora que temos nossas variáveis CSS preparadas, vamos criar o código **javascript** que vai ser responsável por alternar entre os temas **dark** e **light**.
@@ -50,8 +53,7 @@ Agora que temos nossas variáveis CSS preparadas, vamos criar o código **javasc
 Abaixo do objeto `Modal` criado pelo Mayk, vamos adicionar o seguinte código:
 
 ```js
-let COLOR_THEME = window
-  .matchMedia("(prefers-color-scheme: light)")
+let COLOR_THEME = window.matchMedia('(prefers-color-scheme: light)')
   .matches
   ? 'light'
   : 'dark'
@@ -66,6 +68,7 @@ Ele recebe a condição (que no nosso caso é se o usuário está ou não usando
 Depois de resolvida essa operação nossa variável vai saber se o usuário está usando o modo **dark** ou **light**.
 
 ---
+
 ## Função para troca de tema
 
 Agora vamos adicionar a função responsável por alternar entre os temas.
@@ -79,7 +82,7 @@ function switchTheme() {
     : 'light'
 
   const rules = window.document.styleSheets[0].cssRules
- 
+
   for (i = 0; i < rules.length; i++) {
     media = rules[i].media
 
@@ -90,7 +93,7 @@ function switchTheme() {
     let item = media
       .mediaText
       .replace(
-        "(prefers-color-scheme: " + COLOR_THEME + ")", 
+        "(prefers-color-scheme: " + COLOR_THEME + ")",
         "(prefers-color-scheme: " + currentTheme + ")"
       )
 
@@ -109,9 +112,7 @@ const currentTheme = COLOR_THEME
 Após isso vamos adicionar qual tema sera colocado em nossa variável `COLOR_THEME`, para isso iremos usar novamente o operador ternário novamente. Vamos verificar se o tema atual é **light**, caso seja a variável `COLOR_THEME` vai receber **dark**, caso o contrário ela recebe **light**.
 
 ```js
-COLOR_THEME = currentTheme === 'light'
-    ? 'dark'
-    : 'light'
+COLOR_THEME = currentTheme === 'light' ? 'dark' : 'light'
 ```
 
 O próximo passo é criar a variável `rules` para receber todas as regras de CSS que temos em nosso projeto.
@@ -130,19 +131,18 @@ for (i = 0; i < rules.length; i++) {
     continue
   }
 
-  let item = media
-    .mediaText
-    .replace(
-      "(prefers-color-scheme: " + COLOR_THEME + ")", 
-      "(prefers-color-scheme: " + currentTheme + ")"
-    )
+  let item = media.mediaText.replace(
+    '(prefers-color-scheme: ' + COLOR_THEME + ')',
+    '(prefers-color-scheme: ' + currentTheme + ')'
+  )
 
   media.mediaText = item
 }
 ```
+
 Cada rule será adicionada na variável `media`, e após isso vai ser verificado se elea é `undefined`, caso seja seguimos para o próximo ciclo do `for` usando o `continue`.
 
-Caso a `media` seja um valor válido,  vamos para o próximo passo, que vai pegar o nosso `prefers-color-scheme` e alterar do tema que o usuário estava usando para o novo tema e adicionar na variável `item`.
+Caso a `media` seja um valor válido, vamos para o próximo passo, que vai pegar o nosso `prefers-color-scheme` e alterar do tema que o usuário estava usando para o novo tema e adicionar na variável `item`.
 
 Depois disso adicionamos essa alteração na nossa regra **CSS** com o mando `media.mediaText = item`
 
@@ -153,9 +153,28 @@ Nosso card total vai ficar assim:
 <div class="card total">
   <h3>
     <span>Total</span>
-    <svg class="svg" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path  d="M16 1.33333V30.6667" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path  d="M22.6667 6.66667H12.6667C11.429 6.66667 10.242 7.15834 9.36684 8.03351C8.49167 8.90868 8 10.0957 8 11.3333C8 12.571 8.49167 13.758 9.36684 14.6332C10.242 15.5083 11.429 16 12.6667 16H19.3333C20.571 16 21.758 16.4917 22.6332 17.3668C23.5083 18.242 24 19.429 24 20.6667C24 21.9043 23.5083 23.0913 22.6332 23.9665C21.758 24.8417 20.571 25.3333 19.3333 25.3333H8" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <svg
+      class="svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M16 1.33333V30.6667"
+        stroke="black"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M22.6667 6.66667H12.6667C11.429 6.66667 10.242 7.15834 9.36684 8.03351C8.49167 8.90868 8 10.0957 8 11.3333C8 12.571 8.49167 13.758 9.36684 14.6332C10.242 15.5083 11.429 16 12.6667 16H19.3333C20.571 16 21.758 16.4917 22.6332 17.3668C23.5083 18.242 24 19.429 24 20.6667C24 21.9043 23.5083 23.0913 22.6332 23.9665C21.758 24.8417 20.571 25.3333 19.3333 25.3333H8"
+        stroke="black"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
   </h3>
   <p>R$ 3.000,00</p>
@@ -173,21 +192,28 @@ Agora podemos adicionar um **CSS** para alterar a cor do nosso **SVG**.
 Pronto, agora que temos toda a nossa lógica **javascript** e o nosso **svg** preparados precisamos chamar nossa função `switchTheme` em nosso **HTML**.
 
 ---
+
 ## Botão para troca de Temas
+
 Para chamar nossa função e alterar o tema, vamos criar um botão em nosso **HTML**.
 
 Eu adicionei dentro no nosso `header` uma div contento nosso link e logo:
 
 ```html
 <div class="header">
-  <a class="color-mode button" onclick="switchTheme()">Alternar Tema</a>
-  <img class="logo" src="./assets/logo.svg" alt="Logo Dev Finances">
+  <a class="color-mode button" onclick="switchTheme()"
+    >Alternar Tema</a
+  >
+  <img class="logo" src="./assets/logo.svg" alt="Logo Dev Finances" />
 </div>
 ```
+
 Dentro dele coloquei duas classes para usarmos no nosso arquivo CSS e a chamada `onclick` para executar a nossa função.
 
 ---
+
 ## CSS do botão
+
 Para fazer o estilo do nosso botão usei o seguinte CSS:
 
 ```css
@@ -209,23 +235,25 @@ Para fazer o estilo do nosso botão usei o seguinte CSS:
   border: 1px solid var(--light-green);
 }
 
-.header{
+.header {
   display: inline-block;
 
   position: relative;
-  width: min( 90vw, 800px );
+  width: min(90vw, 800px);
 }
 
 .logo {
   margin-top: 4rem;
 }
 ```
+
 ---
+
 ## O Projeto
 
 Para implementar as alterações e adições que foram feitas, você pode acessar o meu [index.html](./index.html), [styles.css](./styles.css) e [index.js](./index.js).
 
-**obs.:** O meu código javascript está em um arquivo separado do HTML, mas você pode fazer as alterações que fiz diretamente dentro da tag `<script></script>` que foi criada pelo Mayk. 
+**obs.:** O meu código javascript está em um arquivo separado do HTML, mas você pode fazer as alterações que fiz diretamente dentro da tag `<script></script>` que foi criada pelo Mayk.
 
 # Refatoração
 
@@ -237,21 +265,17 @@ Revisitando meu código da função `switchTheme`, que ficou da seguinte forma:
 function switchTheme() {
   const currentTheme = COLOR_THEME
 
-  COLOR_THEME = currentTheme === 'light'
-    ? 'dark'
-    : 'light'
+  COLOR_THEME = currentTheme === 'light' ? 'dark' : 'light'
 
   const cssRules = window.document.styleSheets[0].cssRules
- 
+
   for (const rule of cssRules) {
     let media = rule.media
-    
+
     if (media) {
-      media.mediaText = media
-      .mediaText
-      .replace(
-        "(prefers-color-scheme: " + currentTheme + ")", 
-        "(prefers-color-scheme: " + COLOR_THEME + ")"
+      media.mediaText = media.mediaText.replace(
+        '(prefers-color-scheme: ' + currentTheme + ')',
+        '(prefers-color-scheme: ' + COLOR_THEME + ')'
       )
     }
   }
@@ -264,33 +288,32 @@ Ao rodar o projeto no meu celular, percebi que ele só mudava de tema a partir d
 
 Como meu celular já iniciava no modo dark o nosso replace não funcionava na primeira execução, para resolver isso alterai algumas coisa no nosso **javascript**.
 
-Primeira mente removi a variável `COLOR_THEME`, ela não vai ser mais necessária para nossa nova lógica. 
+Primeira mente removi a variável `COLOR_THEME`, ela não vai ser mais necessária para nossa nova lógica.
 
 Agora vamos adicionar uma nova função que vai verificar qual o tema está marcado no nosso `@media` que representa o nosso modo `dark` no CSS e retornar o valor atual e o que queremos adicionar como novo.
 
 ```js
-const invertTheme = (mediaText) => mediaText.indexOf('dark') > -1
-  ? ['dark', 'light']
-  : ['light', 'dark']
+const invertTheme = (mediaText) =>
+  mediaText.indexOf('dark') > -1
+    ? ['dark', 'light']
+    : ['light', 'dark']
 ```
 
 Vamos ver nossa nova função `switchTheme`.
 
 ```js
-function switchTheme() {  
+function switchTheme() {
   const cssRules = window.document.styleSheets[0].cssRules
- 
+
   for (const rule of cssRules) {
     let media = rule.media
-    
+
     if (media) {
       const [currentTheme, nextTheme] = invertTheme(media.mediaText)
 
-      media.mediaText = media
-      .mediaText
-      .replace(
-        "(prefers-color-scheme: " + currentTheme + ")", 
-        "(prefers-color-scheme: " + nextTheme + ")",
+      media.mediaText = media.mediaText.replace(
+        '(prefers-color-scheme: ' + currentTheme + ')',
+        '(prefers-color-scheme: ' + nextTheme + ')'
       )
     }
   }
@@ -302,6 +325,7 @@ Ela continua parecida com a anterior, mas removemos algumas variáveis que eram 
 ```js
 const [currentTheme, nextTheme] = invertTheme(media.mediaText)
 ```
+
 Caso você ainda não esteja familiarizado com essa forma de criar variáveis, ela se chama [desestruturação](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Operators/Atribuicao_via_desestruturacao). O que acontece é que quando recebemos nossa array da função `invertTheme` ele extrai os valores e colocas dentro das variáveis `currentTheme` e `nextTheme`.
 
 Depois disso nossa função continua igual a anterior, fazendo o replace(substituir) do testo da nossa **At-Rule** do tema.

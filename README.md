@@ -1,79 +1,68 @@
-# Dev.Finance$
+<div height="10px">
+  <img src="./docs/assets/header_rocketseat.png" alt="Primeira Maratona Discover - Rocket Seat">
+</div>
 
-Projeto para administração financeira pessoal, desenvolvido durante a **Maratona Discover** pelo **Mayk Brito** da **Rocket Seat**.
+<div align="left">
+    <a href="https://github.com/jorge-lba" >
+        <img src="https://img.shields.io/badge/Autor-Jorge%20Alegretti-8257e5?style=for-the-badge" alt="Autor - Jorge Alegretti" />
+    </a>
+    <a href="https://github.com/jorge-lba/rocketseat-maratona-dicover/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/jorge-lba/rocketseat-maratona-dicover?style=for-the-badge&color=feba09"></a>
+</div>
 
-## Objetivo
+<div align="center">
+  <h1>&#128125; Maratona Discover - dev.finance$ &#128125;</h1>
+  <p align="left">Durante a <b>Maratona Discover</b> o professor <b>Mayk Brito</b> da <b>Rocket Seat</b>, desenvolveu a aplicação de controle financeiro <b>de.finance$</b>, utilizando os conceitos básicos de HTML, CSS E JavaScript.</p>
+  <p align="left">Como desafio proposto aos participantes que desenvolvessem novas funcionalidades no projeto de forma livre.</p>
+  <p align="left">Neste repositório você vai encontrar o projeto completo, com as novas funcionalidades que desenvolvi e tutorias para implementa-las.</p>
+</div>
+<hr/>
 
-Alem de reforçar meus conhecimentos de front-end, utilizei o projeto para criar novas funcionalidades e fazer tutoriais de como implementa-las.
-Me esforcei para manter essas funcionalidades dentro do conhecimentos passados durante as **Maratona Discover**.
+<div align="center">
+    <h1>&#9881;&#65039; Funcionalidades</h1>
+</div>
 
-As funcionalidades implementadas foram:
+<div id="Funcionalidades" align="center">
+  <h4>
+    <a href="#dark-mode"> Dark Mode </a> | 
+    <a href="#extract"> Estrato </a> | 
+    <a href="#plots"> Parcelas </a> | 
+    <a href="#wallets"> Carteiras </a>
+  </h4>
+  <p align="left">Aqui você vai encontrar todas as funcionalidades que foram desenvolvidas e os links para acessar os tutoriais para implementa-las em seu projeto.</p>
+</div>
+<hr/>
 
-<div xmlns="http://www.w3.org/1999/xhtml">
-  <table id="wallets-table">
-    <thead>
-      <tr>
-        <th><span>Funcionalidade</span></th>
-        <th><span>Descrição</span></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <img width="380px" src="./docs/assets/dark_mode.gif">
-        </td>
-        <td>
-        <h4>Dark Mode</h4>
-        <p>Implementação do modo escuro.<p>
-        <span>Com mudança automática que se adequa</span></br>
-        <span>ao sistema e botão para alternar modo</span></br>
-        <p>
-          <a href="./docs/dark_mode_tutorial.md">Ver Tutorial</a>
-        </p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <img width="380px" src="./docs/assets/extract.gif">
-        </td>
-        <td>
-        <h4>Extrato</h4>
-        <p>Implementação da funcionalidade para gerar um extrato.<p>
-        <span>Com essa funcionalidade você pode manter</span></br>
-        <span>o registro de suas transações em um arquivo externo </span></br>
-        <p>
-          <a href="./docs/extract.md">Ver Tutorial</a>
-        </p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <img width="380px" src="./docs/assets/plots.gif">
-        </td>
-        <td>
-        <h4>Parcelas</h4>
-        <p>Implementação de múltiplas transações.<p>
-        <span>Você poderá cadastrar múltiplas transações</span></br>
-        <span>de uma vez, pulando de mês em mês.</span></br>
-        <p>
-          <a href="./docs/dark_mode_tutorial.md">Ver Tutorial</a>
-        </p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <img width="380px" src="./docs/assets/wallet_test.gif">
-        </td>
-        <td>
-        <h4>Múltiplas Carteira</h4>
-        <p>Implementação para varias carteiras.<p>
-        <span>Permite que você tenha carteira separadas</span></br>
-        <span>assim mais de um usuário pode usar a aplicação</span></br>
-        <p>
-          <a href="./docs/wallets_tutorial.md">Ver Tutorial</a>
-        </p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div align="left" id="dark-mode">
+  <h2><a href="#Funcionalidades">&#11013;</a> Dark Mode</h2>
+  <div align="center"><img  width="100%" src="./docs/assets/new_dark_mode.gif"></div>
+  <p >Neste tutorial você vai poder implementar o dark mode em seu projeto, foram utilizados os conhecimento passados durante a maratona e o mínimo de conhecimento externo para a implementação</p>
+  <p >Para os conhecimentos que não foram apresentados na maratona foram deixados links para conteúdos complementares.</p>
+  <a href="./docs/dark_mode_tutorial.md">Ver Tutorial</a>
+</div>
+<hr/>
+
+<div align="left" id="extract">
+  <h2><a href="#Funcionalidades">&#11013;</a> Extrato</h2>
+  <div align="center"><img  width="100%" src="./docs/assets/new_extract.gif"></div>
+  <p>Aqui foi implementada uma funcionalidade para gerar e baixar o extrato das transações, assim você pode ter um registro off line de suas finanças. Neste tutorial foram usados conhecimentos apresentados na maratona e alguns outro que não foram vistos.</p>
+  <p>Para os conhecimentos que não foram apresentados na maratona deixado links para conteúdos complementares.</p>
+  <a href="./docs/extract.md">Ver Tutorial</a>
+</div>
+<hr/>
+
+<div align="left" id="plots">
+  <h2><a href="#Funcionalidades">&#11013;</a> Parcelas</h2>
+  <div align="center"><img  width="100%" src="./docs/assets/new_plots.gif"></div>
+  <p>Este tutorial mostra como implementar o funcionalidade de criar múltiplas parcelas/transações, cada parcela tem um mês de diferença da outro. Para adicionar essa funcionalidade foram usados os conhecimento passados durante a maratona.</p>
+  <p>Para os conhecimento que não foram apresentados na maratona foram deixados links para conteúdos complementares.</p>
+  <a href="./docs/plots.md">Ver Tutorial</a>
+</div>
+<hr/>
+
+<div align="left" id="wallets">
+  <h2><a href="#Funcionalidades">&#11013;</a> Carteiras</h2>
+  <div align="center"><img width="100%" src="./docs/assets/new_plots.gif"></div>
+  <p>Neste tutorial vou mostrar como criar múltiplas carteira/contas, para você poder ter mais de um usuário usando o mesmo navegador. A base de conhecimento utilizada foi apresentada durante a maratona e poucos conhecimentos externos foram utilizados.</p>
+  <p>Para os conhecimento que não foram apresentados na maratona foram deixados links para conteúdos complementares.</p>
+  <a href="./docs/wallets_tutorial.ms">Ver Tutorial</a>
 </div>
