@@ -24,7 +24,7 @@
 <div id="Funcionalidades" align="center">
   <h4>
     <a href="#dark-mode"> Dark Mode </a> | 
-    <a href="#extract"> Estrato </a> | 
+    <a href="#extract"> Extrato </a> | 
     <a href="#plots"> Parcelas </a> | 
     <a href="#wallets"> Carteiras </a>
   </h4>
