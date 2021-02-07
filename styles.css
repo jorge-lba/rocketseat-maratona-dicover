@@ -10,6 +10,7 @@
   --background-color-header: #2d4a22;
   --background-color: #f0f2f5;
   --background-color-input: #fff;
+  --trash-color: #e83f5b;
 
   --calendar-picker-mode: 0;
 
@@ -193,6 +194,36 @@ a.button.extract {
 
 a.button.extract:hover {
   filter: brightness(150%);
+}
+
+a.edit {
+  display: inline-block;
+
+  width: 30px;
+  height: 30px;
+
+  background-color: var(--font-color-base);
+  -webkit-mask: url(./assets/edit.svg) no-repeat 50% 50%;
+  mask: url(./assets/edit.svg) no-repeat 50% 50%;
+}
+
+a.remove {
+  display: inline-block;
+
+  width: 20px;
+  height: 20px;
+
+  background-color: var(--trash-color);
+  -webkit-mask: url(./assets/remove.svg) no-repeat 50% 50%;
+  mask: url(./assets/remove.svg) no-repeat 50% 50%;
+}
+
+rect path {
+  color: #937541;
+}
+
+td a {
+  width: 100px;
 }
 
 /* Header ================================================= */

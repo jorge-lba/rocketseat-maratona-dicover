@@ -61,8 +61,8 @@
 
 <div align="left" id="wallets">
   <h2><a href="#Funcionalidades">&#11013;</a> Carteiras</h2>
-  <div align="center"><img width="100%" src="./docs/assets/new_plots.gif"></div>
+  <div align="center"><img width="100%" src="./docs/assets/new_wallet.gif"></div>
   <p>Neste tutorial vou mostrar como criar múltiplas carteira/contas, para você poder ter mais de um usuário usando o mesmo navegador. A base de conhecimento utilizada foi apresentada durante a maratona e poucos conhecimentos externos foram utilizados.</p>
   <p>Para os conhecimento que não foram apresentados na maratona foram deixados links para conteúdos complementares.</p>
-  <a href="./docs/wallets_tutorial.ms">Ver Tutorial</a>
+  <a href="./docs/wallets_tutorial.md">Ver Tutorial</a>
 </div>
