@@ -523,3 +523,21 @@ function switchTheme() {
     }
   }
 }
+
+document.addEventListener('click', (event) => {
+  const modalTransactionActivated = event.target.matches(
+    '.modal-overlay.transaction.active'
+  )
+
+  const modalWalletActivated = event.target.matches(
+    '.modal-overlay.modal-wallets.active'
+  )
+
+  if (modalTransactionActivated) {
+    Modal.toggle('transaction')
+  }
+
+  if (modalWalletActivated) {
+    Modal.toggle('modal-wallets')
+  }
+})
