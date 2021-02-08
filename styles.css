@@ -10,6 +10,8 @@
   --background-color-header: #2d4a22;
   --background-color: #f0f2f5;
   --background-color-input: #fff;
+
+  --edit-color: #363f5f;
   --trash-color: #e83f5b;
 
   --calendar-picker-mode: 0;
@@ -199,31 +201,32 @@ a.button.extract:hover {
 a.edit {
   display: inline-block;
 
-  width: 30px;
-  height: 30px;
+  width: 56px;
+  height: 56px;
 
-  background-color: var(--font-color-base);
+  background-color: var(--edit-color);
   -webkit-mask: url(./assets/edit.svg) no-repeat 50% 50%;
   mask: url(./assets/edit.svg) no-repeat 50% 50%;
+}
+
+a.edit:hover {
+  filter: brightness(200%) saturate(40);
 }
 
 a.remove {
   display: inline-block;
 
-  width: 20px;
-  height: 20px;
+  width: 56px;
+  height: 56px;
 
   background-color: var(--trash-color);
   -webkit-mask: url(./assets/remove.svg) no-repeat 50% 50%;
   mask: url(./assets/remove.svg) no-repeat 50% 50%;
+  mask-position: center;
 }
 
-rect path {
-  color: #937541;
-}
-
-td a {
-  width: 100px;
+a.remove:hover {
+  filter: saturate(700) contrast(150%);
 }
 
 /* Header ================================================= */
@@ -363,8 +366,14 @@ table thead th {
 
 table tbody td {
   background: var(--table-color-base);
-
   padding: 1rem 2rem;
+}
+
+table tbody td:nth-child(4),
+table tbody td:nth-child(5) {
+  width: 56px;
+  margin: 0;
+  padding: 0;
 }
 
 table tbody tr {

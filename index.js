@@ -1,4 +1,7 @@
 const Modal = {
+  title: document.querySelector('#modal-title'),
+  editable: document.querySelector('#form'),
+
   toggle(value) {
     document
       .querySelector(`.modal-overlay.${value}`)
@@ -90,9 +93,15 @@ const Wallet = {
 
 const Transaction = {
   all: Wallet.selected || [],
+  editableIndex: '',
 
   add(transaction) {
     Transaction.all.transactions.push(transaction)
+    App.reload()
+  },
+
+  update(index, transaction) {
+    Transaction.all.transactions[index] = transaction
     App.reload()
   },
 
@@ -126,7 +135,7 @@ const Transaction = {
 const DOM = {
   transactionsContainer: document.querySelector('#data-table tbody'),
   walletsContainer: document.querySelector('#wallets-table tbody'),
-  language: navigator.language,
+  language: 'pt-BR' || navigator.language,
 
   addWallet(wallet, index) {
     const tr = document.createElement('tr')
@@ -179,13 +188,27 @@ const DOM = {
     <td class="${CSSClass}">${newAmount}</td>
     <td call="date">${date}</td>
     <td>
-      <a class="edit" onclick="Transaction.edit(${index})" ></a>
+      <a class="edit" onclick="DOM.editTransaction(${index})" ></a>
     </td>
     <td>
       <a class="remove" onclick="Transaction.remove(${index})" ></a>
     </td>
     `
     return html
+  },
+
+  editTransaction(index) {
+    const transaction = Transaction.all.transactions[index]
+    transaction.date = transaction.date.split('/').reverse().join('-')
+
+    Transaction.editableIndex = index
+
+    Modal.title.innerText = 'Editar Transação'
+    Modal.editable.setAttribute('data-editable', 'true')
+    Form.setValues(transaction)
+    Form.plotsDisabled()
+
+    Modal.toggle('transaction')
   },
 
   updateBalance() {
@@ -339,6 +362,27 @@ const Form = {
     }
   },
 
+  setValues({ description, amount, date, plots }) {
+    Form.description.value = description
+    Form.amount.value = amount / 100
+    Form.date.value = date.split('/').reverse().join('-')
+    Form.plots.value = plots
+  },
+
+  cancel(value) {
+    Modal.toggle(value)
+    Form.clearFields()
+  },
+
+  plotsDisabled() {
+    Form.plots.setAttribute('disabled', 'disabled')
+    Form.checkbox.setAttribute('disabled', 'disabled')
+  },
+
+  plotsEnabled() {
+    Form.checkbox.removeAttribute('disabled')
+  },
+
   validadeFields() {
     const { description, amount, date } = Form.getValues()
     if (
@@ -377,12 +421,23 @@ const Form = {
     }
   },
 
+  updateTransaction(index, transaction) {
+    transaction.date = Utils.formatDate(
+      new Date(transaction.date + 'T11:00:01')
+    )
+
+    Transaction.update(index, { ...transaction })
+  },
+
   clearFields() {
-    ;(Form.description.value = ''),
-      (Form.amount.value = ''),
-      (Form.date.value = ''),
-      (Form.plots.value = ''),
-      (Form.checkbox.checked = false)
+    Form.description.value = ''
+    Form.amount.value = ''
+    Form.date.value = ''
+    Form.plots.value = ''
+    Form.checkbox.checked = false
+
+    Modal.editable.setAttribute('data-editable', 'false')
+    Modal.title.innerText = 'Nova Transação'
   },
 
   setCurrentDate() {
@@ -407,7 +462,12 @@ const Form = {
       Form.validadeFields()
       const transaction = Form.formatValues()
 
-      Form.saveTransaction(transaction)
+      Modal.editable.attributes['data-editable'].value === 'true'
+        ? Form.updateTransaction(
+            Transaction.editableIndex,
+            transaction
+          )
+        : Form.saveTransaction(transaction)
 
       Form.clearFields()
       Form.setCurrentDate()

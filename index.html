@@ -101,8 +101,8 @@
 
   <div class="modal-overlay transaction">
     <div class="modal">
-      <div id="form">
-        <h2>Nova Transação</h2>
+      <div id="form" data-editable=false>
+        <h2 id="modal-title">Nova Transação</h2>
         <form action="" onsubmit="Form.submit(event)">
           <div class="input-group">
             <label class="sr-only" for="description">Descrição</label>
@@ -126,7 +126,7 @@
           </div>
 
           <div class="input-group actions">
-            <a href="#" class="button cancel" onclick="Modal.toggle('transaction')">Cancelar</a>
+            <a href="#" class="button cancel" onclick="Form.cancel('transaction')">Cancelar</a>
             <button>Salvar</button>
           </div>
         </form>
