@@ -372,6 +372,9 @@ const Form = {
   cancel(value) {
     Modal.toggle(value)
     Form.clearFields()
+    Modal.editable.setAttribute('data-editable', 'false')
+    Modal.title.innerText = 'Nova Transação'
+    Form.plotsEnabled()
   },
 
   plotsDisabled() {
@@ -435,9 +438,6 @@ const Form = {
     Form.date.value = ''
     Form.plots.value = ''
     Form.checkbox.checked = false
-
-    Modal.editable.setAttribute('data-editable', 'false')
-    Modal.title.innerText = 'Nova Transação'
   },
 
   setCurrentDate() {
