@@ -17,8 +17,33 @@
 </div>
 <hr/>
 
+<h4 align="center"> 
+	🚧  Projeto 🚀 Em construção...  🚧
+</h4>
+
+<hr/>
+## Recursos
+  - [x] Layout
+  - [x] CRUD das Transações ( Local Storage )
+    - [x] Create - Criar
+    - [x] Read -Ler
+    - [x] Update - Atualizar
+    - [x] Delete - Excluir
+  - [x] Dark Mode
+  - [x] Gerar Extrato
+  - [x] Exporta CSV
+  - [x] Múltiplas Parcelas
+  - [x] Múltiplas Carteiras
+  - [ ] Filtro para Transações
+    - [ ] Data
+    - [ ] Descrição
+    - [ ] Valor
+  - [ ] Paginação de Transações
+  - [ ] Exportar e Importar Carteira
+<hr/>
+
 <div align="center">
-    <h1>&#9881;&#65039; Funcionalidades</h1>
+    <h2>&#9881;&#65039; Funcionalidades</h2>
 </div>
 
 <div id="Funcionalidades" align="center">
@@ -33,7 +58,7 @@
 <hr/>
 
 <div align="left" id="dark-mode">
-  <h2><a href="#Funcionalidades">&#11013;</a> Dark Mode</h2>
+  <h3><a href="#Funcionalidades">&#11013;</a> Dark Mode</h3>
   <div align="center"><img  width="100%" src="./docs/assets/new_dark_mode.gif"></div>
   <p >Neste tutorial você vai poder implementar o dark mode em seu projeto, foram utilizados os conhecimento passados durante a maratona e o mínimo de conhecimento externo para a implementação</p>
   <p >Para os conhecimentos que não foram apresentados na maratona foram deixados links para conteúdos complementares.</p>
@@ -42,7 +67,7 @@
 <hr/>
 
 <div align="left" id="extract">
-  <h2><a href="#Funcionalidades">&#11013;</a> Extrato</h2>
+  <h3><a href="#Funcionalidades">&#11013;</a> Extrato</h3>
   <div align="center"><img  width="100%" src="./docs/assets/new_extract.gif"></div>
   <p>Aqui foi implementada uma funcionalidade para gerar e baixar o extrato das transações, assim você pode ter um registro off line de suas finanças. Neste tutorial foram usados conhecimentos apresentados na maratona e alguns outro que não foram vistos.</p>
   <p>Para os conhecimentos que não foram apresentados na maratona deixado links para conteúdos complementares.</p>
@@ -51,7 +76,7 @@
 <hr/>
 
 <div align="left" id="plots">
-  <h2><a href="#Funcionalidades">&#11013;</a> Parcelas</h2>
+  <h3><a href="#Funcionalidades">&#11013;</a> Parcelas</h3>
   <div align="center"><img  width="100%" src="./docs/assets/new_plots.gif"></div>
   <p>Este tutorial mostra como implementar o funcionalidade de criar múltiplas parcelas/transações, cada parcela tem um mês de diferença da outro. Para adicionar essa funcionalidade foram usados os conhecimento passados durante a maratona.</p>
   <p>Para os conhecimento que não foram apresentados na maratona foram deixados links para conteúdos complementares.</p>
@@ -60,7 +85,7 @@
 <hr/>
 
 <div align="left" id="wallets">
-  <h2><a href="#Funcionalidades">&#11013;</a> Carteiras</h2>
+  <h3><a href="#Funcionalidades">&#11013;</a> Carteiras</h3>
   <div align="center"><img width="100%" src="./docs/assets/new_wallet.gif"></div>
   <p>Neste tutorial vou mostrar como criar múltiplas carteira/contas, para você poder ter mais de um usuário usando o mesmo navegador. A base de conhecimento utilizada foi apresentada durante a maratona e poucos conhecimentos externos foram utilizados.</p>
   <p>Para os conhecimento que não foram apresentados na maratona foram deixados links para conteúdos complementares.</p>

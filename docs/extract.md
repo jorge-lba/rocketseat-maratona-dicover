@@ -16,7 +16,7 @@ Vamos dar inicio criando um botão para fazer o download do nosso extrato. Iremo
     + Nova Transação
   </a>
 
-  <a href="#" class="button extract" onclick="Wallet.extract()">
+  <a href="#" class="button extract" onclick="Transaction.extract()">
     <img src="./assets/get_app-24px.svg" alt="Gerar Extrato" />
     <span>Gerar extrato</span>
   </a>
@@ -100,7 +100,7 @@ Em seguida temos os seguintes passos:
 - Damos um clink no link que criamos para ele iniciar o download
 - E por fim revogamos nosso link do arquivo para o navegador não ficar guardando ele.
 
-Agora vamos criar a funcionalidade que vai gerar dono o nosso texto do extrato:
+Agora vamos criar dentro de `Transaction` a funcionalidade que vai gerar todo o nosso texto do extrato:
 
 ```js
 

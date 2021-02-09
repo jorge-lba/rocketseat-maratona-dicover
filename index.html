@@ -72,10 +72,17 @@
     <div id="options-transactions">
       <a href="#" class="button new" onclick="Modal.toggle('transaction')">+ Nova Transação</a>
 
-      <a href="#" class="button extract" onclick="Wallet.extract()">
-        <img src="./assets/get_app-24px.svg" alt="Gerar Extrato">
-        <span>Gerar extrato</span>
-      </a>
+      <div class="menu-transactions">
+        <a href="#" class="button extract" onclick="Wallet.extract()">
+          <img src="./assets/get_app-24px.svg" alt="Gerar Extrato">
+          <span>Gerar extrato</span>
+        </a>
+
+        <a href="#" class="button extract" onclick="Wallet.csv()">
+          <img src="./assets/get_app-24px.svg" alt="Gerar CSV">
+          <span>Gerar CSV</span>
+        </a>
+      </div>
     </div>
 
 

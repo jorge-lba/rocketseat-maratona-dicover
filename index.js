@@ -89,6 +89,20 @@ const Wallet = {
 
     Utils.downloadFile(text, 'extrato.txt', 'application/text')
   },
+
+  csv() {
+    const transactions = Transaction.all.transactions
+    const content =
+      'Descrição, Saídas, Total\n' +
+      transactions.reduce((acc, transaction) => {
+        acc += `${transaction.description},"${Utils.formatCurrency(
+          transaction.amount
+        )}",${transaction.date}\n`
+        return acc
+      }, '')
+
+    Utils.downloadFile(content, 'transactions.csv', 'application/csv')
+  },
 }
 
 const Transaction = {

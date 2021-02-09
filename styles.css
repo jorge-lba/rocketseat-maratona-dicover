@@ -329,6 +329,17 @@ header {
   color: var(--light-color-base);
 }
 
+/* Table Options ================================================= */
+div.menu-transactions {
+  display: inline-flex;
+  width: 20rem;
+  padding-right: 0;
+}
+
+div.menu-transactions a {
+  margin: 0 0.8rem;
+}
+
 /* Table ================================================= */
 #transaction {
   display: block;
