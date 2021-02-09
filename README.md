@@ -22,24 +22,27 @@
 </h4>
 
 <hr/>
+
 ## Recursos
-  - [x] Layout
-  - [x] CRUD das Transações ( Local Storage )
-    - [x] Create - Criar
-    - [x] Read -Ler
-    - [x] Update - Atualizar
-    - [x] Delete - Excluir
-  - [x] Dark Mode
-  - [x] Gerar Extrato
-  - [x] Exporta CSV
-  - [x] Múltiplas Parcelas
-  - [x] Múltiplas Carteiras
-  - [ ] Filtro para Transações
-    - [ ] Data
-    - [ ] Descrição
-    - [ ] Valor
-  - [ ] Paginação de Transações
-  - [ ] Exportar e Importar Carteira
+
+- [x] Layout
+- [x] CRUD das Transações ( Local Storage )
+  - [x] Create - Criar
+  - [x] Read -Ler
+  - [x] Update - Atualizar
+  - [x] Delete - Excluir
+- [x] Dark Mode
+- [x] Gerar Extrato
+- [x] Exporta CSV
+- [x] Múltiplas Parcelas
+- [x] Múltiplas Carteiras
+- [ ] Filtro para Transações
+  - [ ] Data
+  - [ ] Descrição
+  - [ ] Valor
+- [ ] Paginação de Transações
+- [ ] Exportar e Importar Carteira
+
 <hr/>
 
 <div align="center">
