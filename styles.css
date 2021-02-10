@@ -329,17 +329,6 @@ header {
   color: var(--light-color-base);
 }
 
-/* Table Options ================================================= */
-div.menu-transactions {
-  display: inline-flex;
-  width: 20rem;
-  padding-right: 0;
-}
-
-div.menu-transactions a {
-  margin: 0 0.8rem;
-}
-
 /* Table ================================================= */
 #transaction {
   display: block;
@@ -584,6 +573,52 @@ footer p {
 .github:hover {
   transition: 0.2s;
   opacity: 0.9;
+}
+
+/* Table Modal Options ================================================= */
+
+div.background-menu {
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+
+  opacity: 0;
+  visibility: hidden;
+}
+
+div.menu-transactions {
+  background: var(--light-color-base);
+
+  display: block;
+  width: 14rem;
+  height: auto;
+  padding: 1rem;
+
+  position: absolute;
+  right: calc((99.3vw - min(90vw, 800px)) / 2);
+
+  border-radius: 0.8rem;
+
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+}
+
+div.menu-transactions.active {
+  opacity: 1;
+  visibility: visible;
+  position: absolute;
+  right: calc((99.3vw - min(90vw, 800px)) / 2);
+}
+
+div.background-menu.active {
+  visibility: visible;
+}
+
+div.menu-transactions a {
+  margin: 0 0.8rem;
 }
 
 /* Responsive ================================================= */

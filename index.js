@@ -3,9 +3,13 @@ const Modal = {
   editable: document.querySelector('#form'),
 
   toggle(value) {
-    document
-      .querySelector(`.modal-overlay.${value}`)
-      .classList.toggle('active')
+    value === 'menu-active'
+      ? document
+          .querySelectorAll(`.menu-trs`)
+          .forEach((element) => element.classList.toggle('active'))
+      : document
+          .querySelector(`.modal-overlay.${value}`)
+          .classList.toggle('active')
   },
 }
 
@@ -547,11 +551,19 @@ document.addEventListener('click', (event) => {
     '.modal-overlay.modal-wallets.active'
   )
 
+  const modalMenuTransactionsActivated = event.target.matches(
+    '.menu-trs.background-menu.active'
+  )
+
   if (modalTransactionActivated) {
     Modal.toggle('transaction')
   }
 
   if (modalWalletActivated) {
     Modal.toggle('modal-wallets')
+  }
+
+  if (modalMenuTransactionsActivated) {
+    Modal.toggle('menu-active')
   }
 })
