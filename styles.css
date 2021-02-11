@@ -575,7 +575,16 @@ footer p {
   opacity: 0.9;
 }
 
-/* Table Modal Options ================================================= */
+/* Table Options ================================================= */
+
+#icons-transactions {
+  display: flex;
+}
+
+.icons {
+  width: 2rem;
+  margin-left: 1.2rem;
+}
 
 div.background-menu {
   width: 100%;
@@ -606,11 +615,82 @@ div.menu-transactions {
   visibility: hidden;
 }
 
+div.menu-transactions.filters {
+  width: 85%;
+  right: calc((105vw - min(90vw, 800px)) / 2);
+}
+
+div.menu-transactions.filters label {
+  color: var(--font-color-base);
+  margin-right: 0.8rem;
+}
+
+#form-filters {
+  margin-top: 1rem;
+  display: block;
+
+  white-space: nowrap;
+  width: 100%;
+}
+
+.input-filter {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.input-filter.date {
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-group.input-filter.date .inputs {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 0.5rem;
+}
+.input-group.input-filter.date .input-date {
+  height: 24px;
+  width: 100%;
+  border: 1px solid var(--font-color-base);
+}
+
+#form-filters button {
+  width: 70%;
+  margin: 0.6rem 15% 0 15%;
+}
+
+.input-group.input-filter.date .checkbox-dates {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.6rem;
+}
+
+div.menu-transactions.filters h2 {
+  margin-top: 0;
+}
+
+div.menu-transactions.filters select {
+  color: var(--font-color-base);
+  height: 30px;
+  flex-grow: 1;
+  padding: 0 10px;
+
+  border-radius: 0.4rem;
+
+  background-color: transparent;
+}
+
 div.menu-transactions.active {
   opacity: 1;
   visibility: visible;
   position: absolute;
-  right: calc((99.3vw - min(90vw, 800px)) / 2);
+
+  z-index: 10;
 }
 
 div.background-menu.active {
@@ -627,10 +707,20 @@ div.menu-transactions a {
     font-size: 87.5%; /* 14px */
   }
 
+  div.menu-transactions.filters {
+    width: 400px;
+  }
+
   #balance {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+  }
+}
+
+@media (min-width: 600px) {
+  div.menu-transactions.filters {
+    width: 400px;
   }
 }
 

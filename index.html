@@ -72,20 +72,57 @@
     <div id="options-transactions">
       <a href="#" class="button new" onclick="Modal.toggle('transaction')">+ Nova Transação</a>
 
-
-      <img src="./assets/more_vert.svg" alt="Menu das Transações" onclick="Modal.toggle('menu-active')"
-        class="menu-more_vert" />
+      <div id="icons-transactions">
+        <a class="button extract">
+          <img src="./assets/filter_list.svg" alt="Menu das Transações" onclick="Modal.toggle('filter-active')"
+            class="icons menu-more_vert" />
+        </a>
+        <a class="button extract">
+          <img src="./assets/more_vert.svg" alt="Menu das Transações" onclick="Modal.toggle('menu-active')"
+            class="icons menu-more_vert" />
+        </a>
+      </div>
 
       <div class="menu-trs menu-transactions">
-        <a href="#" class="button extract" onclick="Wallet.extract()">
+        <a class="button extract" onclick="Wallet.extract()">
           <img src="./assets/get_app-24px.svg" alt="Gerar Extrato">
           <span>Gerar extrato</span>
         </a>
 
-        <a href="#" class="button extract" onclick="Wallet.csv()">
+        <a class="button extract" onclick="Wallet.csv()">
           <img src="./assets/get_app-24px.svg" alt="Gerar CSV">
           <span>Gerar CSV</span>
         </a>
+      </div>
+
+      <div class="menu-transactions filters">
+        <h2>Seleção de Filtros</h3>
+          <hr />
+          <form action="" id="form-filters">
+            <div class="input-group input-filter options">
+              <label for="filter-options">Filtrar por:</label>
+              <select name="filter-options" id="filter-options">
+                <option value="date">data</option>
+                <!-- <option value="amount">amount</option>
+                <option value="description">description</option> -->
+              </select>
+            </div>
+            <div class="input-group input-filter date">
+              <div class="inputs">
+                <input type="checkbox" class="checkbox-dates" id="year" name="year" checked />
+                <input type="text" class="input-date" name="year" id="year" placeholder="Ano" disabled>
+              </div>
+              <div class="inputs">
+                <input type="checkbox" class="checkbox-dates" id="month" name="month" checked />
+                <input type="text" class="input-date" name="month" id="month" placeholder="Mês" disabled>
+              </div>
+              <div class="inputs">
+                <input type="checkbox" class="checkbox-dates" id="day" name="day" checked />
+                <input type="text" class="input-date" name="day" id="day" placeholder="Dia" disabled>
+              </div>
+            </div>
+            <button>Filtrar</button>
+          </form>
       </div>
     </div>
 
@@ -172,6 +209,9 @@
   </div>
 
   <div class="menu-trs background-menu">
+  </div>
+
+  <div class="filters background-menu">
   </div>
 
   <footer>
