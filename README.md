@@ -11,7 +11,7 @@
 
 <div align="center">
   <h1>&#128125; Maratona Discover - dev.finance$ &#128125;</h1>
-  <p align="left">Durante a <b>Maratona Discover</b> o professor <b>Mayk Brito</b> da <b>Rocket Seat</b>, desenvolveu a aplicação de controle financeiro <b>de.finance$</b>, utilizando os conceitos básicos de HTML, CSS E JavaScript.</p>
+  <p align="left">Durante a <b>Maratona Discover</b> o professor <b>Mayk Brito</b> da <b>Rocket Seat</b>, desenvolveu a aplicação de controle financeiro <b>dev.finance$</b>, utilizando os conceitos básicos de HTML, CSS E JavaScript.</p>
   <p align="left">Como desafio proposto aos participantes que desenvolvessem novas funcionalidades no projeto de forma livre.</p>
   <p align="left">Neste repositório você vai encontrar o projeto completo, com as novas funcionalidades que desenvolvi e tutorias para implementa-las.</p>
 </div>
