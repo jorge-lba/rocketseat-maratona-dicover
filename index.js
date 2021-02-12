@@ -126,6 +126,7 @@ const Transaction = {
   all: Wallet.selected || [],
   filtered: { ...Wallet.selected },
   editableIndex: '',
+  editableID: '',
   dates: [],
   filterOptions: {
     Year(transaction, value) {
@@ -176,12 +177,16 @@ const Transaction = {
     App.reload()
   },
 
-  update(index, transaction) {
+  update(index, filterIndex, transaction) {
     Transaction.all.transactions[index] = transaction
+    Transaction.filtered.transactions[filterIndex] = transaction
     App.reload()
   },
 
-  remove(index) {
+  remove(id) {
+    const index = Transaction.all.transactions.findIndex(
+      (transactionIn) => transactionIn.id === id
+    )
     Transaction.all.transactions.splice(index, 1)
     App.reload()
   },
@@ -241,7 +246,6 @@ const Transaction = {
   },
 
   filter(option, value) {
-    console.log(option)
     Transaction.filtered.transactions = Transaction.all.transactions.filter(
       (transaction) =>
         Transaction.filterOptions[option](transaction, value)
@@ -322,7 +326,7 @@ const DOM = {
   },
 
   innerHTMLTransaction(transaction, index) {
-    const { description, amount, date } = transaction
+    const { description, amount, date, id } = transaction
 
     const CSSClass = amount > 0 ? 'income' : 'expense'
 
@@ -333,10 +337,10 @@ const DOM = {
     <td class="${CSSClass}">${newAmount}</td>
     <td call="date">${date}</td>
     <td>
-      <a class="edit" onclick="DOM.editTransaction(${index})" ></a>
+      <a class="edit" onclick="DOM.editTransaction('${id}')" ></a>
     </td>
     <td>
-      <a class="remove" onclick="Transaction.remove(${index})" ></a>
+      <a class="remove" onclick="Transaction.remove('${id}')" ></a>
     </td>
     `
     return html
@@ -381,11 +385,16 @@ const DOM = {
     filterSelected.innerHTML = ''
   },
 
-  editTransaction(index) {
+  editTransaction(id) {
+    const index = Transaction.all.transactions.findIndex(
+      (transactionIn) => transactionIn.id === id
+    )
+
     const transaction = Transaction.all.transactions[index]
     transaction.date = transaction.date.split('/').reverse().join('-')
 
     Transaction.editableIndex = index
+    Transaction.editableID = id
 
     Modal.title.innerText = 'Editar Transação'
     Modal.editable.setAttribute('data-editable', 'true')
@@ -601,19 +610,30 @@ const Form = {
         const newDate = Utils.formatDate(
           Utils.setMonthToDate(date, i)
         )
-        Transaction.add({ ...transaction, date: newDate })
+        const id = (
+          new Date(newDate).getTime() * new Date().getTime()
+        ).toString(16)
+
+        Transaction.add({ ...transaction, date: newDate, id })
       }
     } catch (error) {
       console.log(error)
     }
   },
 
-  updateTransaction(index, transaction) {
+  updateTransaction(index, id, transaction) {
     transaction.date = Utils.formatDate(
       new Date(transaction.date + 'T11:00:01')
     )
 
-    Transaction.update(index, { ...transaction })
+    const filterIndex = Transaction.filtered.transactions.findIndex(
+      (transaction) => transaction.id === id
+    )
+
+    Transaction.update(index, filterIndex, {
+      ...transaction,
+      id,
+    })
   },
 
   clearFields() {
@@ -649,6 +669,7 @@ const Form = {
       Modal.editable.attributes['data-editable'].value === 'true'
         ? Form.updateTransaction(
             Transaction.editableIndex,
+            Transaction.editableID,
             transaction
           )
         : Form.saveTransaction(transaction)
@@ -695,7 +716,6 @@ const FilterDateForm = {
 
       const date = FilterDateForm.getValues()
       Transaction.filter(option, date)
-      console.log(FilterDateForm.option.value)
       DOM.addTagFilter(FilterDateForm.option.value)
 
       Modal.toggle('filter-active')
