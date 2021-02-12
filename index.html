@@ -73,6 +73,11 @@
       <a href="#" class="button new" onclick="Modal.toggle('transaction')">+ Nova Transação</a>
 
       <div id="icons-transactions">
+        <div id="filter-tag">
+
+
+
+        </div>
         <a class="button extract">
           <img src="./assets/filter_list.svg" alt="Menu das Transações" onclick="Modal.toggle('filter-active')"
             class="icons menu-more_vert" />
@@ -98,7 +103,7 @@
       <div class="menu-transactions filters">
         <h2>Seleção de Filtros</h3>
           <hr />
-          <form action="" id="form-filters">
+          <form action="" onsubmit="FilterDateForm.submit(event)" id="form-filters">
             <div class="input-group input-filter options">
               <label for="filter-options">Filtrar por:</label>
               <select name="filter-options" id="filter-options">
@@ -107,21 +112,27 @@
                 <option value="description">description</option> -->
               </select>
             </div>
-            <div class="input-group input-filter date">
+            <div class="input-group input-filter date" id="input-filter-date">
               <div class="inputs">
-                <input type="checkbox" class="checkbox-dates" id="year" name="year" checked />
-                <input type="text" class="input-date" name="year" id="year" placeholder="Ano" disabled>
+                <input type="checkbox" class="checkbox-dates" id="checkbox-year" name="checkbox-year" value="Year" />
+                <select class="input-date" name="input-year" id="input-year" placeholder="Ano">
+                </select>
               </div>
               <div class="inputs">
-                <input type="checkbox" class="checkbox-dates" id="month" name="month" checked />
-                <input type="text" class="input-date" name="month" id="month" placeholder="Mês" disabled>
+                <input type="checkbox" class="checkbox-dates" id="checkbox-month" name="checkbox-month" value="Month" />
+                <select class="input-date" name="input-month" id="input-month" placeholder="Mês">
+
+                </select>
               </div>
               <div class="inputs">
-                <input type="checkbox" class="checkbox-dates" id="day" name="day" checked />
-                <input type="text" class="input-date" name="day" id="day" placeholder="Dia" disabled>
+                <input type="checkbox" class="checkbox-dates" id="checkbox-day" name="checkbox-day" value="Day" />
+                <select class="input-date" name="input-day" id="input-day" placeholder="Dia">
+                </select>
               </div>
             </div>
-            <button>Filtrar</button>
+            <div class="input-group actions">
+              <button>Filtrar</button>
+            </div>
           </form>
       </div>
     </div>

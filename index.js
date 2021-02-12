@@ -22,13 +22,6 @@ const Modal = {
 
   toggle(value) {
     this.optionsToggle[value]()
-    // value === 'menu-active'
-    //   ? document
-    //       .querySelectorAll(`.menu-trs`)
-    //       .forEach((element) => element.classList.toggle('active'))
-    //   : document
-    //       .querySelector(`.modal-overlay.${value}`)
-    //       .classList.toggle('active')
   },
 }
 
@@ -135,35 +128,45 @@ const Transaction = {
   editableIndex: '',
   dates: [],
   filterOptions: {
-    year(transaction, value) {
+    Year(transaction, value) {
       return (
         parseInt(transaction.date.split('/')[2]) ===
         parseInt(value.year)
       )
     },
-    month(transaction, value) {
+    Month(transaction, value) {
       return (
         parseInt(transaction.date.split('/')[1]) ===
         parseInt(value.month)
       )
     },
-    day(transaction, value) {
+    Day(transaction, value) {
       return (
         parseInt(transaction.date.split('/')[0]) ===
         parseInt(value.day)
       )
     },
-    yearAndMonth(transaction, value) {
+    YearDay(transaction, value) {
       return (
-        this.month(transaction, value) &&
-        this.year(transaction, value)
+        this.Day(transaction, value) && this.Year(transaction, value)
       )
     },
-    yearAndMonthAndDay(transaction, value) {
+    YearMonth(transaction, value) {
       return (
-        this.month(transaction, value) &&
-        this.year(transaction, value) &&
-        this.day(transaction, value)
+        this.Month(transaction, value) &&
+        this.Year(transaction, value)
+      )
+    },
+    YearMonthDay(transaction, value) {
+      return (
+        this.Month(transaction, value) &&
+        this.Year(transaction, value) &&
+        this.Day(transaction, value)
+      )
+    },
+    MonthDay(transaction, value) {
+      return (
+        this.Day(transaction, value) && this.Month(transaction, value)
       )
     },
   },
@@ -212,6 +215,15 @@ const Transaction = {
     }, [])
   },
 
+  getMonthsInYear(year) {
+    return this.dates.reduce((accumulator, date) => {
+      const month = date.split('/')[1]
+      if (!accumulator.includes(month) && accumulator.includes(year))
+        accumulator.push(month)
+      return accumulator.sort()
+    }, [])
+  },
+
   getMonths() {
     return this.dates.reduce((accumulator, date) => {
       const month = date.split('/')[1]
@@ -229,17 +241,17 @@ const Transaction = {
   },
 
   filter(option, value) {
+    console.log(option)
     Transaction.filtered.transactions = Transaction.all.transactions.filter(
       (transaction) =>
         Transaction.filterOptions[option](transaction, value)
     )
-    console.log(Transaction.all)
     App.reload()
   },
 
   resetFilter() {
     Transaction.filtered.transactions = Transaction.all.transactions
-    console.log(Transaction.all)
+    DOM.removeTagFilter()
     App.reload()
   },
 
@@ -328,6 +340,45 @@ const DOM = {
     </td>
     `
     return html
+  },
+
+  setValuesInputFilterDate() {
+    const years = Transaction.getYears()
+    const months = Transaction.getMonths()
+    const days = Transaction.getDays()
+
+    const inputYear = document.querySelector('#input-year')
+    const inputMonth = document.querySelector('#input-month')
+    const inputDay = document.querySelector('#input-day')
+
+    inputYear.innerHTML = ''
+    inputMonth.innerHTML = ''
+    inputDay.innerHTML = ''
+
+    years.forEach((year) => {
+      inputYear.innerHTML += `<option value="${year}">${year}</option>`
+    })
+
+    months.forEach((month) => {
+      inputMonth.innerHTML += `<option value="${month}">${month}</option>`
+    })
+
+    days.forEach((day) => {
+      inputDay.innerHTML += `<option value="${day}">${day}</option>`
+    })
+  },
+
+  addTagFilter(option) {
+    const options = {
+      date: 'data',
+    }
+    const filterSelected = document.querySelector('#filter-tag')
+    filterSelected.innerHTML = `<div id="filter-selected"><span>${options[option]}</span><img class="button" onclick="Transaction.resetFilter()" src="./assets/cancel.svg" alt="Remover Filtro"></div>`
+  },
+
+  removeTagFilter() {
+    const filterSelected = document.querySelector('#filter-tag')
+    filterSelected.innerHTML = ''
   },
 
   editTransaction(index) {
@@ -612,6 +663,48 @@ const Form = {
   },
 }
 
+const FilterDateForm = {
+  option: document.querySelector('#filter-options'),
+
+  inputYear: document.querySelector('#input-year'),
+  inputMonth: document.querySelector('#input-month'),
+  inputDay: document.querySelector('#input-day'),
+
+  checkboxYear: document.querySelector('#checkbox-year'),
+  checkboxMonth: document.querySelector('#checkbox-month'),
+  checkboxDay: document.querySelector('#checkbox-day'),
+
+  getValues() {
+    return {
+      year: FilterDateForm.inputYear.value,
+      month: FilterDateForm.inputMonth.value,
+      day: FilterDateForm.inputDay.value,
+    }
+  },
+
+  submit(event) {
+    event.preventDefault()
+    try {
+      let option = ''
+      if (FilterDateForm.checkboxYear.checked)
+        option += FilterDateForm.checkboxYear.value
+      if (FilterDateForm.checkboxMonth.checked)
+        option += FilterDateForm.checkboxMonth.value
+      if (FilterDateForm.checkboxDay.checked)
+        option += FilterDateForm.checkboxDay.value
+
+      const date = FilterDateForm.getValues()
+      Transaction.filter(option, date)
+      console.log(FilterDateForm.option.value)
+      DOM.addTagFilter(FilterDateForm.option.value)
+
+      Modal.toggle('filter-active')
+    } catch (error) {
+      alert('Selecione uma opção')
+    }
+  },
+}
+
 const App = {
   init() {
     Transaction.filtered.transactions?.forEach(DOM.addTransaction)
@@ -621,6 +714,7 @@ const App = {
 
     Form.setCurrentDate()
     Transaction.dates = Transaction.getDates()
+    DOM.setValuesInputFilterDate()
 
     document.querySelector('#wallet-selected-name').innerHTML =
       Transaction.all?.name || 'Crie um Carteira'
@@ -631,6 +725,7 @@ const App = {
     DOM.clearWallets()
     Wallet.update()
     Transaction.dates = Transaction.getDates()
+    DOM.setValuesInputFilterDate()
     this.init()
   },
 }
