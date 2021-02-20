@@ -41,18 +41,27 @@ const Storage = {
 }
 
 const Wallet = {
-  all: Storage.get(),
+  all: Storage.get() || [],
   selected: Storage.get()[0] || Modal.toggle('modal-wallets'),
   index: 0,
+  config: {
+    darkMode: false,
+  },
 
   update() {
-    Wallet.all[Wallet.index] = Wallet.selected
+    if (Wallet.all.length > 0)
+      Wallet.all[Wallet.index] = {
+        ...Wallet.selected,
+        config: Wallet.config,
+      }
     Storage.set(Wallet.all)
   },
 
   add(wallet) {
     if (!wallet.transactions) wallet.transactions = []
+
     Wallet.all.push(wallet)
+
     Storage.set(Wallet.all)
   },
 
@@ -65,6 +74,7 @@ const Wallet = {
     Modal.toggle('modal-wallets')
 
     Wallet.selected = Wallet.all[index]
+    Wallet.config = Wallet.selected.config
     Transaction.all = Wallet.selected
     Transaction.filtered = { ...Wallet.selected }
     Wallet.index = index
@@ -201,48 +211,60 @@ const Transaction = {
   },
 
   getDates() {
-    return Wallet.selected.transactions.reduce(
-      (accumulator, transaction) => {
-        if (!accumulator.includes(transaction.date))
-          accumulator.push(transaction.date)
+    const wallet = Wallet.selected?.transactions
 
-        return accumulator
-      },
-      []
-    )
+    return wallet
+      ? wallet.reduce((accumulator, transaction) => {
+          if (!accumulator.includes(transaction.date))
+            accumulator.push(transaction.date)
+
+          return accumulator
+        }, [])
+      : ''
   },
 
   getYears() {
-    return this.dates.reduce((accumulator, date) => {
-      const year = date.split('/')[2]
-      if (!accumulator.includes(year)) accumulator.push(year)
-      return accumulator
-    }, [])
+    return this.dates
+      ? this.dates.reduce((accumulator, date) => {
+          const year = date.split('/')[2]
+          if (!accumulator.includes(year)) accumulator.push(year)
+          return accumulator
+        }, [])
+      : ''
   },
 
   getMonthsInYear(year) {
-    return this.dates.reduce((accumulator, date) => {
-      const month = date.split('/')[1]
-      if (!accumulator.includes(month) && accumulator.includes(year))
-        accumulator.push(month)
-      return accumulator.sort()
-    }, [])
+    return this.dates
+      ? this.dates.reduce((accumulator, date) => {
+          const month = date.split('/')[1]
+          if (
+            !accumulator.includes(month) &&
+            accumulator.includes(year)
+          )
+            accumulator.push(month)
+          return accumulator.sort()
+        }, [])
+      : ''
   },
 
   getMonths() {
-    return this.dates.reduce((accumulator, date) => {
-      const month = date.split('/')[1]
-      if (!accumulator.includes(month)) accumulator.push(month)
-      return accumulator.sort()
-    }, [])
+    return this.dates
+      ? this.dates.reduce((accumulator, date) => {
+          const month = date.split('/')[1]
+          if (!accumulator.includes(month)) accumulator.push(month)
+          return accumulator.sort()
+        }, [])
+      : ''
   },
 
   getDays() {
-    return this.dates.reduce((accumulator, date) => {
-      const day = date.split('/')[0]
-      if (!accumulator.includes(day)) accumulator.push(day)
-      return accumulator.sort()
-    }, [])
+    return this.dates
+      ? this.dates.reduce((accumulator, date) => {
+          const day = date.split('/')[0]
+          if (!accumulator.includes(day)) accumulator.push(day)
+          return accumulator.sort()
+        }, [])
+      : ''
   },
 
   filter(option, value) {
@@ -347,9 +369,9 @@ const DOM = {
   },
 
   setValuesInputFilterDate() {
-    const years = Transaction.getYears()
-    const months = Transaction.getMonths()
-    const days = Transaction.getDays()
+    const years = Transaction.getYears() || ['2021']
+    const months = Transaction.getMonths() || ['01']
+    const days = Transaction.getDays() || ['01']
 
     const inputYear = document.querySelector('#input-year')
     const inputMonth = document.querySelector('#input-month')
@@ -370,6 +392,56 @@ const DOM = {
     days.forEach((day) => {
       inputDay.innerHTML += `<option value="${day}">${day}</option>`
     })
+  },
+
+  invertTheme(mediaText) {
+    return mediaText.indexOf('dark') > -1
+      ? ['dark', 'light']
+      : ['light', 'dark']
+  },
+
+  loadTheme(darkMode) {
+    const cssRules = window.document.styleSheets[0].cssRules
+
+    for (const rule of cssRules) {
+      let media = rule.media
+
+      if (media) {
+        const [currentTheme] = DOM.invertTheme(media.mediaText)
+        const nextTheme = darkMode ? 'light' : 'dark'
+
+        media.mediaText = media.mediaText.replace(
+          '(prefers-color-scheme: ' + currentTheme + ')',
+          '(prefers-color-scheme: ' + nextTheme + ')'
+        )
+      }
+    }
+  },
+
+  switchTheme() {
+    const cssRules = window.document.styleSheets[0].cssRules
+    let darkMode = []
+
+    for (const rule of cssRules) {
+      let media = rule.media
+
+      if (media) {
+        const [currentTheme, nextTheme] = DOM.invertTheme(
+          media.mediaText
+        )
+        darkMode.push(currentTheme)
+
+        media.mediaText = media.mediaText.replace(
+          '(prefers-color-scheme: ' + currentTheme + ')',
+          '(prefers-color-scheme: ' + nextTheme + ')'
+        )
+      }
+    }
+
+    Wallet.selected.config.darkMode =
+      darkMode[0] === 'dark' ? true : false
+
+    Wallet.update()
   },
 
   addTagFilter(option) {
@@ -526,7 +598,7 @@ const WalletForm = {
     try {
       WalletForm.validadeFields()
       const wallet = WalletForm.formatValues()
-      WalletForm.saveWallet(wallet)
+      WalletForm.saveWallet({ ...wallet, config: Wallet.config })
 
       WalletForm.clearFields()
 
@@ -736,6 +808,8 @@ const App = {
     Transaction.dates = Transaction.getDates()
     DOM.setValuesInputFilterDate()
 
+    DOM.loadTheme(Wallet.selected?.config?.darkMode)
+
     document.querySelector('#wallet-selected-name').innerHTML =
       Transaction.all?.name || 'Crie um Carteira'
   },
@@ -751,28 +825,6 @@ const App = {
 }
 
 App.init()
-
-const invertTheme = (mediaText) =>
-  mediaText.indexOf('dark') > -1
-    ? ['dark', 'light']
-    : ['light', 'dark']
-
-function switchTheme() {
-  const cssRules = window.document.styleSheets[0].cssRules
-
-  for (const rule of cssRules) {
-    let media = rule.media
-
-    if (media) {
-      const [currentTheme, nextTheme] = invertTheme(media.mediaText)
-
-      media.mediaText = media.mediaText.replace(
-        '(prefers-color-scheme: ' + currentTheme + ')',
-        '(prefers-color-scheme: ' + nextTheme + ')'
-      )
-    }
-  }
-}
 
 document.addEventListener('click', (event) => {
   const modalTransactionActivated = event.target.matches(
